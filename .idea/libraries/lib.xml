@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/3.Klasse/Gemachte Sachen/Testverbesserung (2)/ToDoListe/ToDoListe/lib/gson-2.8.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/3.Klasse/Gemachte Sachen/Testverbesserung (2)/ToDoListe/ToDoListe/lib/gson-2.8.9-sources.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

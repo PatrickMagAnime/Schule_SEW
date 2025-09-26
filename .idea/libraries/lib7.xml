@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="lib7">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/3.Klasse/Gemachte Sachen/VideoSplitter-Java/lib/gson-2.8.9-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/3.Klasse/Gemachte Sachen/VideoSplitter-Java/lib/gson-2.8.9.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

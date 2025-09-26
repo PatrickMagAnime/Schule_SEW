@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/3.Klasse/Alle Abgaben/1. Umweltdatenverwaltung/1. Umweltdatenverwaltung.iml" filepath="$PROJECT_DIR$/3.Klasse/Alle Abgaben/1. Umweltdatenverwaltung/1. Umweltdatenverwaltung.iml" />
+      <module fileurl="file://$PROJECT_DIR$/3.Klasse/Alle Abgaben/2. Einfache Vererbung/2. Einfache Vererbung.iml" filepath="$PROJECT_DIR$/3.Klasse/Alle Abgaben/2. Einfache Vererbung/2. Einfache Vererbung.iml" />
+      <module fileurl="file://$PROJECT_DIR$/2.Klasse/2.Klasse.iml" filepath="$PROJECT_DIR$/2.Klasse/2.Klasse.iml" />
+      <module fileurl="file://$PROJECT_DIR$/3.Klasse/Alle Abgaben/20. Zeichenprogramm/20. Zeichenprogramm.iml" filepath="$PROJECT_DIR$/3.Klasse/Alle Abgaben/20. Zeichenprogramm/20. Zeichenprogramm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/3.Klasse/Alle Abgaben/21.3 Projektabgabe/21.3 Projektabgabe.iml" filepath="$PROJECT_DIR$/3.Klasse/Alle Abgaben/21.3 Projektabgabe/21.3 Projektabgabe.iml" />
+      <module fileurl="file://$PROJECT_DIR$/3.Klasse/Alle Abgaben/23. KarteikartenManager/23. KarteikartenManager.iml" filepath="$PROJECT_DIR$/3.Klasse/Alle Abgaben/23. KarteikartenManager/23. KarteikartenManager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/3.Klasse/Alle Abgaben/24. Testverbesserung/24. Testverbesserung.iml" filepath="$PROJECT_DIR$/3.Klasse/Alle Abgaben/24. Testverbesserung/24. Testverbesserung.iml" />
+      <module fileurl="file://$PROJECT_DIR$/3.Klasse/Alle Abgaben/3. Fahrzeugsammlung Polymorphie (protected, super, override)/3. Fahrzeugsammlung Polymorphie (protected, super, override).iml" filepath="$PROJECT_DIR$/3.Klasse/Alle Abgaben/3. Fahrzeugsammlung Polymorphie (protected, super, override)/3. Fahrzeugsammlung Polymorphie (protected, super, override).iml" />
+      <module fileurl="file://$PROJECT_DIR$/3.Klasse/3.Klasse.iml" filepath="$PROJECT_DIR$/3.Klasse/3.Klasse.iml" />
+      <module fileurl="file://$PROJECT_DIR$/2.Klasse/Finished Tasks/A1 GGT/A1 GGT.iml" filepath="$PROJECT_DIR$/2.Klasse/Finished Tasks/A1 GGT/A1 GGT.iml" />
+      <module fileurl="file://$PROJECT_DIR$/2.Klasse/Finished Tasks/A10 Vor-Nachnamen/A10 Vor-Nachnamen.iml" filepath="$PROJECT_DIR$/2.Klasse/Finished Tasks/A10 Vor-Nachnamen/A10 Vor-Nachnamen.iml" />
+      <module fileurl="file://$PROJECT_DIR$/2.Klasse/Finished Tasks/A11 Dreiecke/A11 Dreiecke.iml" filepath="$PROJECT_DIR$/2.Klasse/Finished Tasks/A11 Dreiecke/A11 Dreiecke.iml" />
+      <module fileurl="file://$PROJECT_DIR$/2.Klasse/Finished Tasks/A12 Arrays und Dreiecke/A12 Arrays und Dreiecke.iml" filepath="$PROJECT_DIR$/2.Klasse/Finished Tasks/A12 Arrays und Dreiecke/A12 Arrays und Dreiecke.iml" />
+      <module fileurl="file://$PROJECT_DIR$/2.Klasse/Finished Tasks/A13 Arralist und dreiecke/A13 Arralist und dreiecke.iml" filepath="$PROJECT_DIR$/2.Klasse/Finished Tasks/A13 Arralist und dreiecke/A13 Arralist und dreiecke.iml" />
+      <module fileurl="file://$PROJECT_DIR$/2.Klasse/Finished Tasks/A14 GUI_Temp1/A14 GUI_Temp1.iml" filepath="$PROJECT_DIR$/2.Klasse/Finished Tasks/A14 GUI_Temp1/A14 GUI_Temp1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/2.Klasse/Finished Tasks/A15 Test/A15 Test.iml" filepath="$PROJECT_DIR$/2.Klasse/Finished Tasks/A15 Test/A15 Test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/2.Klasse/Finished Tasks/A16 Tic Tac Toe/A16 Tic Tac Toe.iml" filepath="$PROJECT_DIR$/2.Klasse/Finished Tasks/A16 Tic Tac Toe/A16 Tic Tac Toe.iml" />
+      <module fileurl="file://$PROJECT_DIR$/2.Klasse/Finished Tasks/A17 Adressbuch/A17 Adressbuch.iml" filepath="$PROJECT_DIR$/2.Klasse/Finished Tasks/A17 Adressbuch/A17 Adressbuch.iml" />
+      <module fileurl="file://$PROJECT_DIR$/2.Klasse/Finished Tasks/A18 Adressbuch verbessert/A18 Adressbuch verbessert.iml" filepath="$PROJECT_DIR$/2.Klasse/Finished Tasks/A18 Adressbuch verbessert/A18 Adressbuch verbessert.iml" />
+      <module fileurl="file://$PROJECT_DIR$/2.Klasse/WIP Tasks/A18 Adressbuch verbessert/A18 Adressbuch verbessert2.iml" filepath="$PROJECT_DIR$/2.Klasse/WIP Tasks/A18 Adressbuch verbessert/A18 Adressbuch verbessert2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/2.Klasse/Finished Tasks/A2 Methodenspielerei/A2 Methodenspielerei.iml" filepath="$PROJECT_DIR$/2.Klasse/Finished Tasks/A2 Methodenspielerei/A2 Methodenspielerei.iml" />
+      <module fileurl="file://$PROJECT_DIR$/2.Klasse/Finished Tasks/A3 array/A3 array.iml" filepath="$PROJECT_DIR$/2.Klasse/Finished Tasks/A3 array/A3 array.iml" />
+      <module fileurl="file://$PROJECT_DIR$/2.Klasse/Finished Tasks/A4 Zufallszahl/A4 Zufallszahl.iml" filepath="$PROJECT_DIR$/2.Klasse/Finished Tasks/A4 Zufallszahl/A4 Zufallszahl.iml" />
+      <module fileurl="file://$PROJECT_DIR$/3.Klasse/Gemachte Sachen/A5/A5.iml" filepath="$PROJECT_DIR$/3.Klasse/Gemachte Sachen/A5/A5.iml" />
+      <module fileurl="file://$PROJECT_DIR$/2.Klasse/Finished Tasks/A5 OOP_Beispiel/A5 OOP_Beispiel.iml" filepath="$PROJECT_DIR$/2.Klasse/Finished Tasks/A5 OOP_Beispiel/A5 OOP_Beispiel.iml" />
+      <module fileurl="file://$PROJECT_DIR$/2.Klasse/Finished Tasks/A6 arrays/A6 arrays.iml" filepath="$PROJECT_DIR$/2.Klasse/Finished Tasks/A6 arrays/A6 arrays.iml" />
+      <module fileurl="file://$PROJECT_DIR$/2.Klasse/Finished Tasks/A7 arraymethoden/A7 arraymethoden.iml" filepath="$PROJECT_DIR$/2.Klasse/Finished Tasks/A7 arraymethoden/A7 arraymethoden.iml" />
+      <module fileurl="file://$PROJECT_DIR$/2.Klasse/Finished Tasks/A8 Palindrom/A8 Palindrom.iml" filepath="$PROJECT_DIR$/2.Klasse/Finished Tasks/A8 Palindrom/A8 Palindrom.iml" />
+      <module fileurl="file://$PROJECT_DIR$/2.Klasse/Finished Tasks/A9 Worttausch/A9 Worttausch.iml" filepath="$PROJECT_DIR$/2.Klasse/Finished Tasks/A9 Worttausch/A9 Worttausch.iml" />
+      <module fileurl="file://$PROJECT_DIR$/3.Klasse/Alle Abgaben/Alle Abgaben.iml" filepath="$PROJECT_DIR$/3.Klasse/Alle Abgaben/Alle Abgaben.iml" />
+      <module fileurl="file://$PROJECT_DIR$/3.Klasse/Gemachte Sachen/Aufgabe 20/Aufgabe 20.iml" filepath="$PROJECT_DIR$/3.Klasse/Gemachte Sachen/Aufgabe 20/Aufgabe 20.iml" />
+      <module fileurl="file://$PROJECT_DIR$/3.Klasse/Gemachte Sachen/Aufgabe 20 (2)/Aufgabe 20 (2).iml" filepath="$PROJECT_DIR$/3.Klasse/Gemachte Sachen/Aufgabe 20 (2)/Aufgabe 20 (2).iml" />
+      <module fileurl="file://$PROJECT_DIR$/2.Klasse/WIP Tasks/Bankanwendung/Bankanwendung.iml" filepath="$PROJECT_DIR$/2.Klasse/WIP Tasks/Bankanwendung/Bankanwendung.iml" />
+      <module fileurl="file://$PROJECT_DIR$/4.Klasse/CarRace/CarRace.iml" filepath="$PROJECT_DIR$/4.Klasse/CarRace/CarRace.iml" />
+      <module fileurl="file://$PROJECT_DIR$/2.Klasse/WIP Tasks/Eds/Eds.iml" filepath="$PROJECT_DIR$/2.Klasse/WIP Tasks/Eds/Eds.iml" />
+      <module fileurl="file://$PROJECT_DIR$/3.Klasse/Gemachte Sachen/Exception/Exception.iml" filepath="$PROJECT_DIR$/3.Klasse/Gemachte Sachen/Exception/Exception.iml" />
+      <module fileurl="file://$PROJECT_DIR$/4.Klasse/GUI_Thread/GUI_Thread.iml" filepath="$PROJECT_DIR$/4.Klasse/GUI_Thread/GUI_Thread.iml" />
+      <module fileurl="file://$PROJECT_DIR$/3.Klasse/Gemachte Sachen/Gemachte Sachen.iml" filepath="$PROJECT_DIR$/3.Klasse/Gemachte Sachen/Gemachte Sachen.iml" />
+      <module fileurl="file://$PROJECT_DIR$/3.Klasse/Gemachte Sachen/Graphics/Graphics.iml" filepath="$PROJECT_DIR$/3.Klasse/Gemachte Sachen/Graphics/Graphics.iml" />
+      <module fileurl="file://$PROJECT_DIR$/3.Klasse/Gemachte Sachen/KarteiKartenManager/KarteiKartenManager.iml" filepath="$PROJECT_DIR$/3.Klasse/Gemachte Sachen/KarteiKartenManager/KarteiKartenManager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/2.Klasse/WIP Tasks/Main/Main.iml" filepath="$PROJECT_DIR$/2.Klasse/WIP Tasks/Main/Main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/3.Klasse/Gemachte Sachen/Regex/Regex.iml" filepath="$PROJECT_DIR$/3.Klasse/Gemachte Sachen/Regex/Regex.iml" />
+      <module fileurl="file://$PROJECT_DIR$/3.Klasse/Gemachte Sachen/Rekursion/Rekursion.iml" filepath="$PROJECT_DIR$/3.Klasse/Gemachte Sachen/Rekursion/Rekursion.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/SEW.iml" filepath="$PROJECT_DIR$/.idea/SEW.iml" />
+      <module fileurl="file://$PROJECT_DIR$/3.Klasse/Gemachte Sachen/StringManipulation/StringManipulation.iml" filepath="$PROJECT_DIR$/3.Klasse/Gemachte Sachen/StringManipulation/StringManipulation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/3.Klasse/Gemachte Sachen/Testing/Testing.iml" filepath="$PROJECT_DIR$/3.Klasse/Gemachte Sachen/Testing/Testing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/3.Klasse/Gemachte Sachen/Testverbesserung/Testverbesserung.iml" filepath="$PROJECT_DIR$/3.Klasse/Gemachte Sachen/Testverbesserung/Testverbesserung.iml" />
+      <module fileurl="file://$PROJECT_DIR$/3.Klasse/Gemachte Sachen/Testverbesserung (2)/Testverbesserung (2).iml" filepath="$PROJECT_DIR$/3.Klasse/Gemachte Sachen/Testverbesserung (2)/Testverbesserung (2).iml" />
+      <module fileurl="file://$PROJECT_DIR$/4.Klasse/Threadbsp1/Threadbsp1.iml" filepath="$PROJECT_DIR$/4.Klasse/Threadbsp1/Threadbsp1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/3.Klasse/Gemachte Sachen/ToDoListe/ToDoListe.iml" filepath="$PROJECT_DIR$/3.Klasse/Gemachte Sachen/ToDoListe/ToDoListe.iml" />
+      <module fileurl="file://$PROJECT_DIR$/3.Klasse/Gemachte Sachen/ToDoListe (2)/ToDoListe (2).iml" filepath="$PROJECT_DIR$/3.Klasse/Gemachte Sachen/ToDoListe (2)/ToDoListe (2).iml" />
+      <module fileurl="file://$PROJECT_DIR$/2.Klasse/WIP Tasks/Transportfirma/Transportfirma.iml" filepath="$PROJECT_DIR$/2.Klasse/WIP Tasks/Transportfirma/Transportfirma.iml" />
+      <module fileurl="file://$PROJECT_DIR$/3.Klasse/Gemachte Sachen/Tuerme von Hanoi - Rekursion/Tuerme von Hanoi - Rekursion.iml" filepath="$PROJECT_DIR$/3.Klasse/Gemachte Sachen/Tuerme von Hanoi - Rekursion/Tuerme von Hanoi - Rekursion.iml" />
+      <module fileurl="file://$PROJECT_DIR$/2.Klasse/WIP Tasks/Uebung 10/Uebung 10.iml" filepath="$PROJECT_DIR$/2.Klasse/WIP Tasks/Uebung 10/Uebung 10.iml" />
+      <module fileurl="file://$PROJECT_DIR$/3.Klasse/Gemachte Sachen/Umwelterfassungsdaten/Umwelterfassungsdaten.iml" filepath="$PROJECT_DIR$/3.Klasse/Gemachte Sachen/Umwelterfassungsdaten/Umwelterfassungsdaten.iml" />
+      <module fileurl="file://$PROJECT_DIR$/3.Klasse/Gemachte Sachen/Vererbung/Vererbung.iml" filepath="$PROJECT_DIR$/3.Klasse/Gemachte Sachen/Vererbung/Vererbung.iml" />
+      <module fileurl="file://$PROJECT_DIR$/3.Klasse/Gemachte Sachen/VideoSplitter-Java/VideoSplitter-Java.iml" filepath="$PROJECT_DIR$/3.Klasse/Gemachte Sachen/VideoSplitter-Java/VideoSplitter-Java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/3.Klasse/Gemachte Sachen/abstract/abstract.iml" filepath="$PROJECT_DIR$/3.Klasse/Gemachte Sachen/abstract/abstract.iml" />
+      <module fileurl="file://$PROJECT_DIR$/3.Klasse/Gemachte Sachen/enumComboBox/enumComboBox.iml" filepath="$PROJECT_DIR$/3.Klasse/Gemachte Sachen/enumComboBox/enumComboBox.iml" />
+      <module fileurl="file://$PROJECT_DIR$/3.Klasse/Gemachte Sachen/extends/extends.iml" filepath="$PROJECT_DIR$/3.Klasse/Gemachte Sachen/extends/extends.iml" />
+      <module fileurl="file://$PROJECT_DIR$/4.Klasse/fibonacci/fibonacci.iml" filepath="$PROJECT_DIR$/4.Klasse/fibonacci/fibonacci.iml" />
+      <module fileurl="file://$PROJECT_DIR$/3.Klasse/Gemachte Sachen/karteiKartenGUI/karteiKartenGUI.iml" filepath="$PROJECT_DIR$/3.Klasse/Gemachte Sachen/karteiKartenGUI/karteiKartenGUI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/3.Klasse/Gemachte Sachen/karteiKartenGUI (2)/karteiKartenGUI (2).iml" filepath="$PROJECT_DIR$/3.Klasse/Gemachte Sachen/karteiKartenGUI (2)/karteiKartenGUI (2).iml" />
+      <module fileurl="file://$PROJECT_DIR$/3.Klasse/Gemachte Sachen/readwrite/readwrite.iml" filepath="$PROJECT_DIR$/3.Klasse/Gemachte Sachen/readwrite/readwrite.iml" />
+    </modules>
+  </component>
+</project>
