@@ -19,7 +19,6 @@ public class CarUI {
         car2Button = new JButton("Car 2");
         car3Button = new JButton("Car 3");
 
-        // Icon laden aus dem Arbeitsverzeichnis
         ImageIcon icon = loadIcon("nuke.png");
         if (icon != null) {
             Image scaled = icon.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
@@ -34,7 +33,6 @@ public class CarUI {
             car3Button.setIcon(scaledIcon);
         }
 
-        // Größen und Positionen
         Dimension carSize = new Dimension(64, 64);
         car1Button.setSize(carSize);
         car2Button.setSize(carSize);
@@ -47,18 +45,15 @@ public class CarUI {
 
         startButton.setBounds(20, 250, 120, 30);
 
-        // Namen für Anzeige
         car1Button.setName("Car 1");
         car2Button.setName("Car 2");
         car3Button.setName("Car 3");
 
-        // Hinzufügen
         CarGUI.add(startButton);
         CarGUI.add(car1Button);
         CarGUI.add(car2Button);
         CarGUI.add(car3Button);
 
-        // Rennen
         race = new CarRace(car1Button, car2Button, car3Button);
         race.captureStartPositionsFromCurrentBounds();
 

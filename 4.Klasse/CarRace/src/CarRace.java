@@ -8,29 +8,28 @@ public class CarRace {
     private final Random rnd = new Random();
 
     private final Point[] startPositions;
-    private final int[] finishX; // Ziellinien-X für jedes Auto (gecacht)
+    private final int[] finishX;
 
     public CarRace(JButton car1, JButton car2, JButton car3) {
         this.cars = new JButton[]{car1, car2, car3};
-        // 20 ms ~ 50 FPS, fühlt sich meist flüssiger an als 30 ms
+
         this.timer = new Timer(20, e -> tick());
-        this.timer.setCoalesce(true); // mehrere fällige Events zusammenfassen
+        this.timer.setCoalesce(true);
         this.startPositions = new Point[cars.length];
         this.finishX = new int[cars.length];
     }
 
     public void captureStartPositionsFromCurrentBounds() {
         for (int i = 0; i < cars.length; i++) {
-            // validate() ist hier nicht nötig
+
             startPositions[i] = new Point(cars[i].getX(), cars[i].getY());
         }
-        // Beim Erfassen direkt einmal die Ziellinie berechnen (falls Größen schon feststehen)
+
         recomputeFinishLines();
     }
 
     public void start() {
-        // Vor dem Start noch einmal die Ziellinie anhand der aktuellen Größen berechnen
-        // (falls das Fenster zwischenzeitlich sichtbar/resize wurde)
+
         recomputeFinishLines();
         if (!timer.isRunning()) {
             timer.start();
@@ -57,11 +56,9 @@ public class CarRace {
         for (int i = 0; i < cars.length; i++) {
             JButton car = cars[i];
 
-            // Schrittweite 1..5
             int dx = rnd.nextInt(5) + 1;
             int newX = cars[i].getX() + dx;
 
-            // an Ziellinie kappen
             if (newX > finishX[i]) {
                 newX = finishX[i];
             }
@@ -70,7 +67,6 @@ public class CarRace {
                 car.setLocation(newX, car.getY());
             }
 
-            // Gewinner ermitteln (in derselben Schleife, spart einen zweiten Durchlauf)
             if (newX >= finishX[i]) {
                 winnerIndex = i;
             }
@@ -84,8 +80,7 @@ public class CarRace {
                 String txt = winner.getText();
                 name = (txt == null || txt.isBlank()) ? "Car" : txt;
             }
-            // Hinweis: JOptionPane blockiert die EDT (normal bei Swing).
-            // Hier ist das okay, weil das Rennen bereits gestoppt wurde.
+            //stack overflow copy paste, hoffe das geht in ordnung
             JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(winner), name + " gewinnt");
         }
     }
@@ -95,9 +90,8 @@ public class CarRace {
             JButton car = cars[i];
             Container p = car.getParent();
             if (p == null) {
-                finishX[i] = Integer.MAX_VALUE; // sollte nicht passieren, aber verhindert NPE
+                finishX[i] = Integer.MAX_VALUE;
             } else {
-                // 10px Rand rechts
                 int fx = p.getWidth() - car.getWidth() - 10;
                 finishX[i] = Math.max(0, fx);
             }
