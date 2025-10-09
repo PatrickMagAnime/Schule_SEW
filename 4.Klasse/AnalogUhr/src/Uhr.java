@@ -8,8 +8,8 @@ import java.time.format.DateTimeFormatter;
 public class Uhr extends JFrame implements Runnable {
 
     private JPanel UhrPanel;//form
-    private AnalogClockPanel analogPanel;//die mitte
-    private JLabel lblDigitalTime;//süden
+    private AnalogClockPanel analogPanel;//uhr in mitte
+    private JLabel lblDigitalTime;//uhr die unten ist
 
     private volatile boolean running = false;
     private Thread clockThread;
@@ -52,6 +52,7 @@ public class Uhr extends JFrame implements Runnable {
         running = true;
         clockThread = new Thread(this, "ClockThread");
         clockThread.setDaemon(true);
+        //hier wird der tread gestartet der in der analogclockpanel klasse die zeiger aktualisiert der analog uhr
         clockThread.start();
     }
 
@@ -62,6 +63,7 @@ public class Uhr extends JFrame implements Runnable {
 
     @Override
     public void run() {
+        //hier wird jede sekunde die aktuelste zeit aufgerufen mit setTime und die digital uhr aktualisiert
         while (running) {
             LocalTime now = LocalTime.now();
 
@@ -80,5 +82,7 @@ public class Uhr extends JFrame implements Runnable {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new Uhr().setVisible(true));
+        //die .form existiert zwar(ist leer), wird sowieso vom code überschrieben damit alles dynamisch bleibt
+        //ich hab darauf geachtet das die immer zentriert ist, als manuell gesetzte komponenten würde das komplizierter sein
     }
 }

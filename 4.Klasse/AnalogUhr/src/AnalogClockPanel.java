@@ -4,11 +4,11 @@ import java.time.LocalTime;
 
 public class AnalogClockPanel extends JPanel {
 
-    private LocalTime time = LocalTime.now();
+    private LocalTime time = LocalTime.now();//setzt die zeit auf die jetzige, nutze ich unten für sek,min,h
 
     public void setTime(LocalTime t) {
         this.time = t;
-        repaint();
+        repaint();//jedesmal wenn die methode aufgerufen wird zeichnet sich die uhr neu. update() würde es auch geben
     }
 
     @Override
@@ -64,14 +64,14 @@ public class AnalogClockPanel extends JPanel {
             int minute = time.getMinute();
             int second = time.getSecond();
 
-            double hourAngle   = Math.toRadians(((hour % 12) + minute / 60.0 + second / 3600.0) * 30 - 90);
+            double hourAngle = Math.toRadians(((hour % 12) + minute / 60.0 + second / 3600.0) * 30 - 90);
             double minuteAngle = Math.toRadians((minute + second / 60.0) * 6 - 90);
             double secondAngle = Math.toRadians(second * 6 - 90);
-
+            //selbsterklärend
             int hourLen = (int) (radius * 0.55);
             int minuteLen = (int) (radius * 0.75);
             int secondLen = (int) (radius * 0.82);
-
+            //werte übergeben an draw
             g2.setColor(new Color(30, 30, 30));
             g2.setStroke(new BasicStroke(5f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
             drawHand(g2, cx, cy, hourLen, hourAngle);
@@ -92,6 +92,7 @@ public class AnalogClockPanel extends JPanel {
     }
 
     private void drawHand(Graphics2D g2, int cx, int cy, int length, double angleRad) {
+        //berechnung von den zeigern
         int x = cx + (int) Math.round(length * Math.cos(angleRad));
         int y = cy + (int) Math.round(length * Math.sin(angleRad));
         g2.drawLine(cx, cy, x, y);
