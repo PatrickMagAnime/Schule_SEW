@@ -1,0 +1,12 @@
+{
+  "id": "neon",
+  "name": "Neon",
+  "palette": {
+    "bg": "#0A0A0A",
+    "midline": "#2EE6A6",
+    "paddleLeft": "#12FFB0",
+    "paddleRight": "#00BFFF",
+    "ball": "#FFE066",
+    "text": "#FFFFFF"
+  }
+}

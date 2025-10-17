@@ -1,0 +1,12 @@
+{
+  "id": "default",
+  "name": "Classic",
+  "palette": {
+    "bg": "#000000",
+    "midline": "#444444",
+    "paddleLeft": "#FFFFFF",
+    "paddleRight": "#FFFFFF",
+    "ball": "#FFFFFF",
+    "text": "#FFFFFF"
+  }
+}

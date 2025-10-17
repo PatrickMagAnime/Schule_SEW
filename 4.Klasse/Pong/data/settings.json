@@ -1,0 +1,12 @@
+{
+  "volume": 0.0,
+  "selectedSkinId": "neon",
+  "fps": 60,
+  "maxPoints1v1": 5,
+  "player1UpKey": "W",
+  "player1DownKey": "S",
+  "player1BoostKey": "X",
+  "player2UpKey": "O",
+  "player2DownKey": "L",
+  "player2BoostKey": ","
+}

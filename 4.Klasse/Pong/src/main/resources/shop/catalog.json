@@ -1,0 +1,6 @@
+{
+  "items": [
+    { "id": "neon", "name": "Neon", "price": 1.99, "currency": "EUR" },
+    { "id": "retro", "name": "Retro", "price": 1.99, "currency": "EUR" }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "id": "retro",
+  "name": "Retro",
+  "palette": {
+    "bg": "#1F1F1F",
+    "midline": "#F2C94C",
+    "paddleLeft": "#EB5757",
+    "paddleRight": "#2D9CDB",
+    "ball": "#F8F3D4",
+    "text": "#F2F2F2"
+  }
+}
