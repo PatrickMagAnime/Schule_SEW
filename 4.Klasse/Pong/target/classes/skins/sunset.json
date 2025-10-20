@@ -1,0 +1,12 @@
+{
+  "id": "sunset",
+  "name": "Sunset",
+  "palette": {
+    "bg": "#2B193D",
+    "midline": "#F67280",
+    "paddleLeft": "#F8B195",
+    "paddleRight": "#C06C84",
+    "ball": "#FCE38A",
+    "text": "#FFFFFF"
+  }
+}

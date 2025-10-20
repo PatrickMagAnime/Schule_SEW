@@ -1,0 +1,12 @@
+{
+  "id": "arcade",
+  "name": "Arcade",
+  "palette": {
+    "bg": "#111D4A",
+    "midline": "#FF2079",
+    "paddleLeft": "#20D5FF",
+    "paddleRight": "#FFFB20",
+    "ball": "#FFFFFF",
+    "text": "#F4F4F8"
+  }
+}

@@ -1,6 +1,9 @@
 {
   "items": [
-    { "id": "neon", "name": "Neon", "price": 1.99, "currency": "EUR" },
-    { "id": "retro", "name": "Retro", "price": 1.99, "currency": "EUR" }
+    { "id": "neon", "name": "Neon", "price": 1.79, "currency": "EUR" },
+    { "id": "retro", "name": "Retro", "price": 1.59, "currency": "EUR" },
+    { "id": "sunset", "name": "Sunset", "price": 2.29, "currency": "EUR" },
+    { "id": "aurora", "name": "Aurora", "price": 2.49, "currency": "EUR" },
+    { "id": "arcade", "name": "Arcade", "price": 1.99, "currency": "EUR" }
   ]
 }

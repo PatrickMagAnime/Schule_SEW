@@ -1,0 +1,12 @@
+{
+  "id": "aurora",
+  "name": "Aurora",
+  "palette": {
+    "bg": "#0B1A2A",
+    "midline": "#5FFBF1",
+    "paddleLeft": "#7FFF00",
+    "paddleRight": "#40E0D0",
+    "ball": "#FFD700",
+    "text": "#E0FFFF"
+  }
+}
