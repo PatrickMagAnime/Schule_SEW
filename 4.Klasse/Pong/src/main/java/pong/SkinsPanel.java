@@ -16,6 +16,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.Component;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -43,8 +45,14 @@ public final class SkinsPanel extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
+    setBackground(new Color(0x2A2A2A));
+    BackgroundAnimator.register(this);
+    BackgroundAnimator.styleButton(activateButton);
+    BackgroundAnimator.styleButton(backButton);
+
         JLabel title = new JLabel("Skins");
         title.setAlignmentX(CENTER_ALIGNMENT);
+    title.setForeground(Color.WHITE);
         add(title);
         add(Box.createVerticalStrut(10));
 
@@ -60,6 +68,7 @@ public final class SkinsPanel extends JPanel {
         add(Box.createVerticalStrut(10));
 
         infoLabel.setAlignmentX(CENTER_ALIGNMENT);
+    infoLabel.setForeground(Color.WHITE);
         add(infoLabel);
         add(Box.createVerticalStrut(10));
 
@@ -186,5 +195,13 @@ public final class SkinsPanel extends JPanel {
 
             g2.dispose();
         }
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D) g.create();
+        BackgroundAnimator.paint(g2, getWidth(), getHeight());
+        g2.dispose();
     }
 }

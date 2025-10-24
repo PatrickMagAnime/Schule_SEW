@@ -11,6 +11,9 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -36,21 +39,38 @@ public final class ShopPanel extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
+    setBackground(new Color(0x2A2A2A));
+    BackgroundAnimator.register(this);
+    BackgroundAnimator.styleButton(buyButton);
+    BackgroundAnimator.styleButton(backButton);
+
         JLabel title = new JLabel("Shop");
         title.setAlignmentX(CENTER_ALIGNMENT);
+    title.setForeground(Color.WHITE);
         add(title);
         add(Box.createVerticalStrut(10));
 
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.setPreferredScrollableViewportSize(new Dimension(420, 220));
-        add(new JScrollPane(table));
+        table.setBackground(new Color(0x3A3A3A));
+        table.setForeground(Color.WHITE);
+        javax.swing.JScrollPane sp = new javax.swing.JScrollPane(table);
+        sp.setOpaque(false);
+        sp.getViewport().setOpaque(false);
+        add(sp);
         add(Box.createVerticalStrut(10));
 
-        buyButton.setAlignmentX(CENTER_ALIGNMENT);
-        backButton.setAlignmentX(CENTER_ALIGNMENT);
-        add(buyButton);
-        add(Box.createVerticalStrut(10));
-        add(backButton);
+    buyButton.setAlignmentX(CENTER_ALIGNMENT);
+    buyButton.setMaximumSize(new Dimension(320, 60));
+    buyButton.setPreferredSize(new Dimension(320, 60));
+    buyButton.setFont(buyButton.getFont().deriveFont(20f));
+    backButton.setAlignmentX(CENTER_ALIGNMENT);
+    backButton.setMaximumSize(new Dimension(320, 60));
+    backButton.setPreferredSize(new Dimension(320, 60));
+    backButton.setFont(backButton.getFont().deriveFont(20f));
+    add(buyButton);
+    add(Box.createVerticalStrut(10));
+    add(backButton);
         add(Box.createVerticalGlue());
 
         buyButton.addActionListener(e -> openPaymentForSelected());
@@ -103,5 +123,13 @@ public final class ShopPanel extends JPanel {
             window.notifySkinInventoryChanged();
             refresh();
         }
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D) g.create();
+        BackgroundAnimator.paint(g2, getWidth(), getHeight());
+        g2.dispose();
     }
 }

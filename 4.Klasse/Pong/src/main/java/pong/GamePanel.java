@@ -20,26 +20,49 @@ import java.util.Objects;
 import java.util.Random;
 
 public final class GamePanel extends JPanel {
-    private static final int WIDTH = 900;
-    private static final int HEIGHT = 540;
-    private static final double PADDLE_WIDTH = 12;
-    private static final double PADDLE_HEIGHT = 90;
+    private static final int DEFAULT_WIDTH = 900;
+    private static final int DEFAULT_HEIGHT = 540;
+    private static final double PADDLE_WIDTH = 12; //stt ist 12
+    private static final double PADDLE_HEIGHT = 90; //std ist 90
     private static final double PADDLE_SPEED = 7.0;
     private static final double BALL_SIZE = 14;
     private static final double START_SPEED = 4.0;
-    private static final double SPEED_DELTA = 0.25;
-    private static final double MAX_SPEED = 16.0;
-    private static final int HITS_PER_LEVEL = 4;
+    private static final double SPEED_DELTA = 0.25; //std ist 0.25w
+    private static final double MAX_SPEED = 16.0; //std ist 16.0
+    private static final int HITS_PER_LEVEL = 3; //std ist 4
     private static final double SINGLEPLAYER_SCORE_FACTOR = 25.0;
-    private static final double BOOST_MULTIPLIER = 1.8;
+    private static final double BOOST_MULTIPLIER = 1.8; //std ist 1.8
 
     private final AppWindow window;
     private final AppContext context;
-    private final Paddle leftPaddle = new Paddle(40, HEIGHT / 2.0 - PADDLE_HEIGHT / 2.0, PADDLE_WIDTH, PADDLE_HEIGHT);
-    private final Paddle rightPaddle = new Paddle(WIDTH - 40 - PADDLE_WIDTH, HEIGHT / 2.0 - PADDLE_HEIGHT / 2.0, PADDLE_WIDTH, PADDLE_HEIGHT);
-    private final Ball ball = new Ball(WIDTH / 2.0 - BALL_SIZE / 2.0, HEIGHT / 2.0 - BALL_SIZE / 2.0, BALL_SIZE);
+    private Paddle leftPaddle;
+    private Paddle rightPaddle;
+    private Ball ball;
+    private int width;
+    private int height;
     private final Timer timer;
     private final Random random = new Random();
+    // scale-aware values (updated on resize)
+    private double scale = 1.0;
+    private double scaledPaddleWidth;
+    private double scaledPaddleHeight;
+    private double scaledBallSize;
+    private double scaledPaddleSpeed;
+    private double scaledStartSpeed;
+    private double scaledSpeedDelta;
+    private double scaledMaxSpeed;
+
+    private void updateScaleAndSizes() {
+        // keep proportions using the smaller axis scale
+        scale = Math.min((double) Math.max(1, width) / DEFAULT_WIDTH, (double) Math.max(1, height) / DEFAULT_HEIGHT);
+        scaledPaddleWidth = PADDLE_WIDTH * scale;
+        scaledPaddleHeight = PADDLE_HEIGHT * scale;
+        scaledBallSize = BALL_SIZE * scale;
+        scaledPaddleSpeed = PADDLE_SPEED * scale;
+        scaledStartSpeed = START_SPEED * scale;
+        scaledSpeedDelta = SPEED_DELTA * scale;
+        scaledMaxSpeed = MAX_SPEED * scale;
+    }
 
     private GameConfiguration configuration;
     private boolean running;
@@ -64,7 +87,58 @@ public final class GamePanel extends JPanel {
         this.context = Objects.requireNonNull(context);
         this.timer = new Timer(defaultDelay(), e -> onTick());
         this.timer.setInitialDelay(0);
-        setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        this.width = DEFAULT_WIDTH;
+        this.height = DEFAULT_HEIGHT;
+        updateScaleAndSizes();
+        leftPaddle = new Paddle(40, height / 2.0 - scaledPaddleHeight / 2.0, scaledPaddleWidth, scaledPaddleHeight);
+        rightPaddle = new Paddle(width - 40 - scaledPaddleWidth, height / 2.0 - scaledPaddleHeight / 2.0, scaledPaddleWidth, scaledPaddleHeight);
+        ball = new Ball(width / 2.0 - scaledBallSize / 2.0, height / 2.0 - scaledBallSize / 2.0, scaledBallSize);
+        setPreferredSize(new Dimension(width, height));
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            @Override
+            public void componentResized(java.awt.event.ComponentEvent e) {
+                int oldWidth = Math.max(1, width);
+                int oldHeight = Math.max(1, height);
+                double oldScale = scale;
+                // read new size
+                width = getWidth();
+                height = getHeight();
+                // update scale and scaled sizes
+                updateScaleAndSizes();
+
+                if (running && ball != null) {
+                    // preserve logical speed across scale changes so level doesn't jump
+                    if (oldScale <= 0) oldScale = 1.0;
+                    double logicalSpeed = currentSpeed / oldScale;
+                    currentSpeed = logicalSpeed * scale;
+
+                    // update paddle sizes and keep their vertical center proportional
+                    double leftCenterRel = leftPaddle.centerY() / (double) oldHeight;
+                    double rightCenterRel = rightPaddle.centerY() / (double) oldHeight;
+                    leftPaddle.setSize(scaledPaddleWidth, scaledPaddleHeight);
+                    rightPaddle.setSize(scaledPaddleWidth, scaledPaddleHeight);
+                    leftPaddle.setPosition(40, Math.max(0, Math.min(height - scaledPaddleHeight, leftCenterRel * height - scaledPaddleHeight / 2.0)));
+                    rightPaddle.setPosition(width - 40 - scaledPaddleWidth, Math.max(0, Math.min(height - scaledPaddleHeight, rightCenterRel * height - scaledPaddleHeight / 2.0)));
+
+                    // update ball size and position proportionally (keep center)
+                    double ballCenterRelX = ball.centerX() / (double) oldWidth;
+                    double ballCenterRelY = ball.centerY() / (double) oldHeight;
+                    ball.setSize(scaledBallSize);
+                    double newCenterX = ballCenterRelX * width;
+                    double newCenterY = ballCenterRelY * height;
+                    ball.setPosition(newCenterX - ball.size() / 2.0, newCenterY - ball.size() / 2.0);
+                    // ensure ball inside bounds
+                    ball.clampPosition(0, 0, width - ball.size(), height - ball.size());
+                    // adjust velocity magnitudes to new currentSpeed while preserving direction
+                    ball.setSpeed(currentSpeed);
+                } else {
+                    // when not running, keep previous behavior: recenter and reset ball
+                    resetPositions();
+                    ball.setSize(scaledBallSize);
+                    resetBall(randomHorizontalDirection());
+                }
+            }
+        });
         setFocusable(true);
         setDoubleBuffered(true);
         configureKeyBindings();
@@ -74,7 +148,7 @@ public final class GamePanel extends JPanel {
         this.configuration = Objects.requireNonNull(configuration);
         running = true;
         paused = false;
-        currentSpeed = START_SPEED;
+        currentSpeed = scaledStartSpeed;
         hitsUntilSpeedIncrease = HITS_PER_LEVEL;
         singleScore = 0;
         leftScore = 0;
@@ -129,6 +203,7 @@ public final class GamePanel extends JPanel {
         registerActionKey(inputMap, actionMap, "P", this::togglePause);
         registerActionKey(inputMap, actionMap, "R", this::resetMatch);
         registerActionKey(inputMap, actionMap, "ESCAPE", () -> window.returnToMenu());
+        registerActionKey(inputMap, actionMap, "F11", () -> window.toggleFullscreen());
     }
 
     private void registerStateKey(InputMap inputMap, ActionMap actionMap, String key,
@@ -188,7 +263,7 @@ public final class GamePanel extends JPanel {
 
     private void updateInputs() {
         double leftVelocity = 0;
-        double leftSpeed = PADDLE_SPEED * (player1BoostPressed ? BOOST_MULTIPLIER : 1.0);
+        double leftSpeed = scaledPaddleSpeed * (player1BoostPressed ? BOOST_MULTIPLIER : 1.0);
         if (player1UpPressed) {
             leftVelocity -= leftSpeed;
         }
@@ -201,7 +276,7 @@ public final class GamePanel extends JPanel {
 
         if (configuration.mode() == GameConfiguration.Mode.MULTI_PLAYER) {
             double rightVelocity = 0;
-            double rightSpeed = PADDLE_SPEED * (player2BoostPressed ? BOOST_MULTIPLIER : 1.0);
+            double rightSpeed = scaledPaddleSpeed * (player2BoostPressed ? BOOST_MULTIPLIER : 1.0);
             if (player2UpPressed) {
                 rightVelocity -= rightSpeed;
             }
@@ -213,7 +288,7 @@ public final class GamePanel extends JPanel {
             clampPaddle(rightPaddle);
         } else {
             rightPaddle.setVelocity(0);
-            rightPaddle.setY(HEIGHT / 2.0 - PADDLE_HEIGHT / 2.0);
+            rightPaddle.setY(height / 2.0 - scaledPaddleHeight / 2.0);
         }
     }
 
@@ -228,14 +303,14 @@ public final class GamePanel extends JPanel {
         if (ball.top() <= 0 && ball.velocityY() < 0) {
             ball.setPosition(ball.x(), 0);
             ball.invertY();
-        } else if (ball.bottom() >= HEIGHT && ball.velocityY() > 0) {
-            ball.setPosition(ball.x(), HEIGHT - BALL_SIZE);
+        } else if (ball.bottom() >= height && ball.velocityY() > 0) {
+            ball.setPosition(ball.x(), height - ball.size());
             ball.invertY();
         }
 
         if (configuration.mode() == GameConfiguration.Mode.SINGLE_PLAYER) {
-            if (ball.right() >= WIDTH && ball.velocityX() > 0) {
-                ball.setPosition(WIDTH - BALL_SIZE, ball.y());
+            if (ball.right() >= width && ball.velocityX() > 0) {
+                ball.setPosition(width - ball.size(), ball.y());
                 ball.invertX();
                 ball.setSpeed(currentSpeed);
             }
@@ -248,7 +323,7 @@ public final class GamePanel extends JPanel {
             ball.invertX();
             afterPaddleHit();
         } else if (configuration.mode() == GameConfiguration.Mode.MULTI_PLAYER && ball.velocityX() > 0 && intersects(ball, rightPaddle)) {
-            ball.setPosition(rightPaddle.left() - BALL_SIZE, ball.y());
+            ball.setPosition(rightPaddle.left() - ball.size(), ball.y());
             ball.invertX();
             afterPaddleHit();
         }
@@ -258,7 +333,7 @@ public final class GamePanel extends JPanel {
         hitsUntilSpeedIncrease--;
         if (hitsUntilSpeedIncrease <= 0) {
             hitsUntilSpeedIncrease = HITS_PER_LEVEL;
-            currentSpeed = Math.min(MAX_SPEED, currentSpeed + SPEED_DELTA);
+            currentSpeed = Math.min(scaledMaxSpeed, currentSpeed + scaledSpeedDelta);
         }
         currentSpeed = Math.max(currentSpeed, Math.abs(ball.velocityX()));
         ball.setSpeed(currentSpeed);
@@ -278,7 +353,7 @@ public final class GamePanel extends JPanel {
                 rightScore++;
                 checkMultiplayerEnd();
                 resetAfterPoint(false);
-            } else if (ball.right() >= WIDTH) {
+            } else if (ball.right() >= width) {
                 leftScore++;
                 checkMultiplayerEnd();
                 resetAfterPoint(true);
@@ -344,21 +419,24 @@ public final class GamePanel extends JPanel {
     }
 
     private void resetAfterPoint(boolean leftScored) {
-        currentSpeed = START_SPEED;
+        currentSpeed = scaledStartSpeed;
         hitsUntilSpeedIncrease = HITS_PER_LEVEL;
         resetPositions();
         resetBall(leftScored ? -1 : 1);
     }
 
     private void resetPositions() {
-        leftPaddle.setPosition(40, HEIGHT / 2.0 - PADDLE_HEIGHT / 2.0);
-        rightPaddle.setPosition(WIDTH - 40 - PADDLE_WIDTH, HEIGHT / 2.0 - PADDLE_HEIGHT / 2.0);
+        leftPaddle.setPosition(40, height / 2.0 - scaledPaddleHeight / 2.0);
+        rightPaddle.setPosition(width - 40 - scaledPaddleWidth, height / 2.0 - scaledPaddleHeight / 2.0);
+        // update paddle sizes in case scale changed
+        leftPaddle.setSize(scaledPaddleWidth, scaledPaddleHeight);
+        rightPaddle.setSize(scaledPaddleWidth, scaledPaddleHeight);
     }
 
     private void resetBall(int horizontalDirection) {
         double dirX = horizontalDirection == 0 ? randomHorizontalDirection() : Math.signum(horizontalDirection);
         double dirY = random.nextBoolean() ? 1 : -1;
-        ball.setPosition(WIDTH / 2.0 - BALL_SIZE / 2.0, HEIGHT / 2.0 - BALL_SIZE / 2.0);
+        ball.setPosition(width / 2.0 - ball.size() / 2.0, height / 2.0 - ball.size() / 2.0);
         ball.setVelocity(dirX * currentSpeed, dirY * currentSpeed);
     }
 
@@ -370,8 +448,8 @@ public final class GamePanel extends JPanel {
         double y = paddle.top();
         if (y < 0) {
             paddle.setY(0);
-        } else if (paddle.bottom() > HEIGHT) {
-            paddle.setY(HEIGHT - paddle.height());
+        } else if (paddle.bottom() > height) {
+            paddle.setY(height - paddle.height());
         }
     }
 
@@ -391,7 +469,7 @@ public final class GamePanel extends JPanel {
         if (configuration == null) {
             return;
         }
-        currentSpeed = START_SPEED;
+        currentSpeed = scaledStartSpeed;
         hitsUntilSpeedIncrease = HITS_PER_LEVEL;
         singleScore = 0;
         leftScore = 0;
@@ -431,33 +509,36 @@ public final class GamePanel extends JPanel {
 
         Skin skin = context.currentSkinOrDefault();
         ColorPalette palette = skin.palette();
-        g2.setColor(palette.background());
-        g2.fillRect(0, 0, WIDTH, HEIGHT);
+    g2.setColor(palette.background());
+    g2.fillRect(0, 0, width, height);
 
-        g2.setColor(palette.midline());
-        int dashHeight = 20;
-        int gap = 15;
-        int midX = WIDTH / 2 - 2;
-        for (int y = 0; y < HEIGHT; y += dashHeight + gap) {
-            g2.fillRect(midX, y, 4, dashHeight);
+        Storage.Settings settings = context.settings();
+        if (settings.showMidline) {
+            g2.setColor(palette.midline());
+            int dashHeight = 20;
+            int gap = 15;
+            int midX = width / 2 - 2;
+            for (int y = 0; y < height; y += dashHeight + gap) {
+                g2.fillRect(midX, y, 4, dashHeight);
+            }
         }
 
         g2.setColor(palette.paddleLeft());
-        g2.fillRect((int) Math.round(leftPaddle.left()), (int) Math.round(leftPaddle.top()), (int) Math.round(PADDLE_WIDTH), (int) Math.round(PADDLE_HEIGHT));
+        g2.fillRect((int) Math.round(leftPaddle.left()), (int) Math.round(leftPaddle.top()), (int) Math.round(leftPaddle.width()), (int) Math.round(leftPaddle.height()));
 
         if (configuration.mode() == GameConfiguration.Mode.MULTI_PLAYER) {
             g2.setColor(palette.paddleRight());
-            g2.fillRect((int) Math.round(rightPaddle.left()), (int) Math.round(rightPaddle.top()), (int) Math.round(PADDLE_WIDTH), (int) Math.round(PADDLE_HEIGHT));
+            g2.fillRect((int) Math.round(rightPaddle.left()), (int) Math.round(rightPaddle.top()), (int) Math.round(rightPaddle.width()), (int) Math.round(rightPaddle.height()));
         }
 
         g2.setColor(palette.ball());
-        g2.fillOval((int) Math.round(ball.left()), (int) Math.round(ball.top()), (int) Math.round(BALL_SIZE), (int) Math.round(BALL_SIZE));
+        g2.fillOval((int) Math.round(ball.left()), (int) Math.round(ball.top()), (int) Math.round(ball.size()), (int) Math.round(ball.size()));
 
-        g2.setColor(palette.text());
-        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 20f));
+    g2.setColor(palette.text());
+    g2.setFont(g2.getFont().deriveFont(Font.BOLD, (float) (20f * Math.max(1.0, scale))));
         if (configuration.mode() == GameConfiguration.Mode.SINGLE_PLAYER) {
             String hud = configuration.playerOneName() + "  Score: " + singleScore;
-            int level = 1 + (int) Math.floor((currentSpeed - START_SPEED) / SPEED_DELTA);
+            int level = 1 + (int) Math.floor((currentSpeed - scaledStartSpeed) / scaledSpeedDelta);
             hud += "  Level: " + level;
             g2.drawString(hud, 30, 30);
         } else {
@@ -465,19 +546,18 @@ public final class GamePanel extends JPanel {
             String leftLabel = configuration.playerOneName() + ": " + leftScore + " / " + target;
             String rightLabel = configuration.playerTwoName() + ": " + rightScore + " / " + target;
             g2.drawString(leftLabel, 30, 30);
-            g2.drawString(rightLabel, WIDTH - 200, 30);
+            g2.drawString(rightLabel, width - 200, 30);
         }
-        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 14f));
-        Storage.Settings settings = context.settings();
-        String boostInfo = "Boost: " + settings.player1BoostKey + " / " + settings.player2BoostKey;
-        g2.drawString("P = Pause  R = Reset  ESC = Menü  " + boostInfo, 30, HEIGHT - 20);
+    g2.setFont(g2.getFont().deriveFont(Font.PLAIN, (float) (14f * Math.max(1.0, scale))));
+    String boostInfo = "Boost: " + settings.player1BoostKey + " / " + settings.player2BoostKey;
+        g2.drawString("P = Pause  R = Reset  ESC = Menü  " + boostInfo, 30, height - (int) (20 * Math.max(1.0, scale)));
 
         if (paused) {
             g2.setColor(new Color(0, 0, 0, 120));
-            g2.fillRect(0, 0, WIDTH, HEIGHT);
+            g2.fillRect(0, 0, width, height);
             g2.setColor(palette.text());
-            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 36f));
-            g2.drawString("Pause", WIDTH / 2 - 60, HEIGHT / 2);
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, (float) (36f * Math.max(1.0, scale))));
+            g2.drawString("Pause", width / 2 - (int) (60 * Math.max(1.0, scale)), height / 2);
         }
 
         g2.dispose();

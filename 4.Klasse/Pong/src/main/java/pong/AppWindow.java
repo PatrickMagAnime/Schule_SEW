@@ -28,6 +28,8 @@ public final class AppWindow extends JFrame {
     private final LeaderboardPanel leaderboardPanel;
 
     private GamePanel gamePanel;
+    private boolean fullscreen = false;
+    private java.awt.Rectangle windowedBounds = null;
 
     public AppWindow(AppContext context) {
         this.context = Objects.requireNonNull(context, "context");
@@ -54,6 +56,36 @@ public final class AppWindow extends JFrame {
         pack();
         setLocationRelativeTo(null);
         showMenu();
+    }
+
+    public void toggleFullscreen() {
+        fullscreen = !fullscreen;
+        // toggling undecorated requires disposing
+        java.awt.EventQueue.invokeLater(() -> {
+            try {
+                if (fullscreen) {
+                    windowedBounds = getBounds();
+                    java.awt.Dimension screen = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+                    dispose();
+                    setUndecorated(true);
+                    setBounds(0, 0, screen.width, screen.height);
+                    setVisible(true);
+                    setExtendedState(JFrame.MAXIMIZED_BOTH);
+                } else {
+                    dispose();
+                    setUndecorated(false);
+                    setVisible(true);
+                    setExtendedState(JFrame.NORMAL);
+                    if (windowedBounds != null) {
+                        setBounds(windowedBounds);
+                    }
+                    pack();
+                    setLocationRelativeTo(null);
+                }
+            } catch (Exception e) {
+                // best-effort, ignore
+            }
+        });
     }
 
     public AppContext context() {

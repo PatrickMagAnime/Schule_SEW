@@ -15,6 +15,9 @@ import java.time.format.DateTimeParseException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Color;
 
 public final class LeaderboardPanel extends JPanel {
     private static final String MODE_SP = "SP";
@@ -36,24 +39,50 @@ public final class LeaderboardPanel extends JPanel {
         this.context = Objects.requireNonNull(context);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        // match the dark theme used across other panels
+        setBackground(new Color(0x2A2A2A));
+        setOpaque(true);
 
         JLabel title = new JLabel("Leaderboard");
         title.setAlignmentX(CENTER_ALIGNMENT);
+    title.setForeground(Color.WHITE);
         add(title);
         add(Box.createVerticalStrut(10));
 
         modeSelector.setMaximumSize(modeSelector.getPreferredSize());
         modeSelector.addActionListener(e -> refreshTable());
+        modeSelector.setBackground(new Color(0x3A3A3A));
+        modeSelector.setForeground(Color.WHITE);
+        modeSelector.setOpaque(true);
         add(modeSelector);
         add(Box.createVerticalStrut(10));
 
+        // Table dark styling
         table.setFillsViewportHeight(true);
-        add(new JScrollPane(table));
+        table.setBackground(new Color(0x333333));
+        table.setForeground(Color.WHITE);
+        table.setShowGrid(false);
+        table.setRowHeight(26);
+        table.setSelectionBackground(new Color(0x55607A));
+        table.setSelectionForeground(Color.WHITE);
+        if (table.getTableHeader() != null) {
+            table.getTableHeader().setBackground(new Color(0x222222));
+            table.getTableHeader().setForeground(Color.WHITE);
+            table.getTableHeader().setOpaque(true);
+        }
+
+        JScrollPane scroll = new JScrollPane(table);
+        scroll.getViewport().setBackground(new Color(0x2A2A2A));
+        scroll.setOpaque(false);
+        scroll.setBorder(BorderFactory.createEmptyBorder());
+        add(scroll);
         add(Box.createVerticalStrut(10));
 
         JButton backButton = new JButton("Zurück");
         backButton.setAlignmentX(CENTER_ALIGNMENT);
         backButton.addActionListener(e -> window.showMenu());
+        BackgroundAnimator.register(this);
+        BackgroundAnimator.styleButton(backButton);
         add(backButton);
         add(Box.createVerticalGlue());
     }
@@ -73,5 +102,13 @@ public final class LeaderboardPanel extends JPanel {
         for (Storage.LeaderboardEntry entry : entries) {
             tableModel.addRow(new Object[]{entry.name, entry.score, entry.date});
         }
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D) g.create();
+        BackgroundAnimator.paint(g2, getWidth(), getHeight());
+        g2.dispose();
     }
 }

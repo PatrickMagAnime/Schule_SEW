@@ -1,12 +1,13 @@
 {
-  "volume": 0.0,
-  "selectedSkinId": "aurora",
+  "volume": 0.8,
+  "selectedSkinId": "arcade",
   "fps": 60,
-  "maxPoints1v1": 5,
+  "maxPoints1v1": 10,
   "player1UpKey": "W",
   "player1DownKey": "S",
   "player1BoostKey": "X",
   "player2UpKey": "O",
   "player2DownKey": "L",
-  "player2BoostKey": ","
+  "player2BoostKey": ",",
+  "showMidline": true
 }

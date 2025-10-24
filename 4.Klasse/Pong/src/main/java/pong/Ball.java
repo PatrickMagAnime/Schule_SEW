@@ -5,11 +5,15 @@ public final class Ball {
     private double y;
     private double vx;
     private double vy;
-    private final double size;
+    private double size;
 
     public Ball(double x, double y, double size) {
         this.x = x;
         this.y = y;
+        this.size = size;
+    }
+
+    public void setSize(double size) {
         this.size = size;
     }
 
@@ -19,6 +23,7 @@ public final class Ball {
     }
 
     public void setPosition(double x, double y) {
+
         this.x = x;
         this.y = y;
     }

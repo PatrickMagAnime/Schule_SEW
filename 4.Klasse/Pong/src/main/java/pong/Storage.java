@@ -226,6 +226,7 @@ public final class Storage {
         public String player2UpKey = "O";
         public String player2DownKey = "L";
         public String player2BoostKey = ",";
+        public boolean showMidline = true;
     }
 
     public static final class SkinsOwned {
