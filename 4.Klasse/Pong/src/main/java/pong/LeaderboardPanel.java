@@ -37,11 +37,9 @@ public final class LeaderboardPanel extends JPanel {
     public LeaderboardPanel(AppWindow window, AppContext context) {
         this.window = Objects.requireNonNull(window);
         this.context = Objects.requireNonNull(context);
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        // match the dark theme used across other panels
-        setBackground(new Color(0x2A2A2A));
-        setOpaque(true);
+    setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+    setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+    Theme.applyPanelTheme(this);
 
         JLabel title = new JLabel("Leaderboard");
         title.setAlignmentX(CENTER_ALIGNMENT);
@@ -49,40 +47,22 @@ public final class LeaderboardPanel extends JPanel {
         add(title);
         add(Box.createVerticalStrut(10));
 
-        modeSelector.setMaximumSize(modeSelector.getPreferredSize());
-        modeSelector.addActionListener(e -> refreshTable());
-        modeSelector.setBackground(new Color(0x3A3A3A));
-        modeSelector.setForeground(Color.WHITE);
-        modeSelector.setOpaque(true);
+    modeSelector.setMaximumSize(modeSelector.getPreferredSize());
+    modeSelector.addActionListener(e -> refreshTable());
+    Theme.styleComboBox(modeSelector);
         add(modeSelector);
         add(Box.createVerticalStrut(10));
 
-        // Table dark styling
-        table.setFillsViewportHeight(true);
-        table.setBackground(new Color(0x333333));
-        table.setForeground(Color.WHITE);
-        table.setShowGrid(false);
-        table.setRowHeight(26);
-        table.setSelectionBackground(new Color(0x55607A));
-        table.setSelectionForeground(Color.WHITE);
-        if (table.getTableHeader() != null) {
-            table.getTableHeader().setBackground(new Color(0x222222));
-            table.getTableHeader().setForeground(Color.WHITE);
-            table.getTableHeader().setOpaque(true);
-        }
-
-        JScrollPane scroll = new JScrollPane(table);
-        scroll.getViewport().setBackground(new Color(0x2A2A2A));
-        scroll.setOpaque(false);
-        scroll.setBorder(BorderFactory.createEmptyBorder());
+        Theme.styleTable(table);
+        javax.swing.JScrollPane scroll = new javax.swing.JScrollPane(table);
+        Theme.styleScrollViewport(scroll);
         add(scroll);
         add(Box.createVerticalStrut(10));
 
         JButton backButton = new JButton("Zurück");
         backButton.setAlignmentX(CENTER_ALIGNMENT);
-        backButton.addActionListener(e -> window.showMenu());
-        BackgroundAnimator.register(this);
-        BackgroundAnimator.styleButton(backButton);
+    backButton.addActionListener(e -> window.showMenu());
+    Theme.styleButtons(backButton);
         add(backButton);
         add(Box.createVerticalGlue());
     }

@@ -88,8 +88,7 @@ public final class MenuPanel extends JPanel {
     add(wrapper, BorderLayout.CENTER);
 
     // theme
-    setBackground(new Color(0x2A2A2A));
-    BackgroundAnimator.register(this);
+    Theme.applyPanelTheme(this);
     BackgroundAnimator.styleButton(playButton);
     BackgroundAnimator.styleButton(settingsButton);
     BackgroundAnimator.styleButton(skinsButton);
@@ -103,8 +102,7 @@ public final class MenuPanel extends JPanel {
         JLabel nameLabel = new JLabel("Dein Name:");
     nameLabel.setForeground(Color.WHITE);
         nameField.setPreferredSize(new Dimension(200, 28));
-    nameField.setBackground(new Color(0x444444));
-    nameField.setForeground(Color.WHITE);
+    Theme.styleTextField(nameField);
         bottom.add(nameLabel);
         bottom.add(nameField);
         add(bottom, BorderLayout.SOUTH);

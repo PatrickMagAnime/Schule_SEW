@@ -45,10 +45,8 @@ public final class SkinsPanel extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-    setBackground(new Color(0x2A2A2A));
-    BackgroundAnimator.register(this);
-    BackgroundAnimator.styleButton(activateButton);
-    BackgroundAnimator.styleButton(backButton);
+    Theme.applyPanelTheme(this);
+    Theme.styleButtons(activateButton, backButton);
 
         JLabel title = new JLabel("Skins");
         title.setAlignmentX(CENTER_ALIGNMENT);
@@ -56,9 +54,12 @@ public final class SkinsPanel extends JPanel {
         add(title);
         add(Box.createVerticalStrut(10));
 
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        table.setPreferredScrollableViewportSize(new Dimension(400, 200));
-        add(new JScrollPane(table));
+    table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    table.setPreferredScrollableViewportSize(new Dimension(400, 200));
+    Theme.styleTable(table);
+    javax.swing.JScrollPane jsp = new javax.swing.JScrollPane(table);
+    Theme.styleScrollViewport(jsp);
+    add(jsp);
         add(Box.createVerticalStrut(10));
 
         previewPanel.setPreferredSize(new Dimension(420, 180));

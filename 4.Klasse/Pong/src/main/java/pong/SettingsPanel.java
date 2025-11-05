@@ -35,7 +35,7 @@ public final class SettingsPanel extends JPanel {
         this.context = Objects.requireNonNull(context);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
-    setBackground(new java.awt.Color(0x2A2A2A));
+        Theme.applyPanelTheme(this);
 
     JLabel title = new JLabel("Einstellungen");
     title.setAlignmentX(CENTER_ALIGNMENT);
@@ -54,10 +54,7 @@ public final class SettingsPanel extends JPanel {
     volumeSlider.setPaintTicks(true);
     volumeSlider.setPaintLabels(true);
     volumeSlider.setAlignmentX(CENTER_ALIGNMENT);
-    // dark background and readable labels
-    volumeSlider.setBackground(new java.awt.Color(0x3A3A3A));
-    volumeSlider.setForeground(java.awt.Color.WHITE);
-    volumeSlider.setOpaque(true);
+    Theme.styleSlider(volumeSlider);
         add(volumeSlider);
     updateSliderLabelColors(volumeSlider);
         add(Box.createVerticalStrut(20));
@@ -73,10 +70,7 @@ public final class SettingsPanel extends JPanel {
     fpsSlider.setPaintTicks(true);
     fpsSlider.setPaintLabels(true);
     fpsSlider.setAlignmentX(CENTER_ALIGNMENT);
-    // dark background and readable labels
-    fpsSlider.setBackground(new java.awt.Color(0x3A3A3A));
-    fpsSlider.setForeground(java.awt.Color.WHITE);
-    fpsSlider.setOpaque(true);
+    Theme.styleSlider(fpsSlider);
         add(fpsSlider);
     updateSliderLabelColors(fpsSlider);
         add(Box.createVerticalStrut(20));
@@ -89,8 +83,7 @@ public final class SettingsPanel extends JPanel {
 
     maxPointsField.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 28));
     maxPointsField.setHorizontalAlignment(JTextField.CENTER);
-    maxPointsField.setBackground(new java.awt.Color(0x444444));
-    maxPointsField.setForeground(java.awt.Color.WHITE);
+    Theme.styleTextField(maxPointsField);
         add(maxPointsField);
         add(Box.createVerticalStrut(20));
 
@@ -168,10 +161,8 @@ public final class SettingsPanel extends JPanel {
         midlineCheckbox.setForeground(java.awt.Color.WHITE);
         midlineCheckbox.setOpaque(false);
 
-        // style buttons and register for animated background
-        BackgroundAnimator.register(this);
-        BackgroundAnimator.styleButton(resetButton);
-        BackgroundAnimator.styleButton(backButton);
+    // style buttons via Theme (panel registration already done)
+    Theme.styleButtons(resetButton, backButton);
     }
 
     public void refresh() {
@@ -231,8 +222,7 @@ public final class SettingsPanel extends JPanel {
         field.setMaximumSize(new java.awt.Dimension(100, 28));
         field.setHorizontalAlignment(JTextField.CENTER);
         field.setColumns(4);
-        field.setBackground(new java.awt.Color(0x444444));
-        field.setForeground(java.awt.Color.WHITE);
+    Theme.styleTextField(field);
         return field;
     }
 

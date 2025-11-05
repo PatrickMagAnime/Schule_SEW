@@ -39,10 +39,8 @@ public final class ShopPanel extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-    setBackground(new Color(0x2A2A2A));
-    BackgroundAnimator.register(this);
-    BackgroundAnimator.styleButton(buyButton);
-    BackgroundAnimator.styleButton(backButton);
+    Theme.applyPanelTheme(this);
+    Theme.styleButtons(buyButton, backButton);
 
         JLabel title = new JLabel("Shop");
         title.setAlignmentX(CENTER_ALIGNMENT);
@@ -50,14 +48,12 @@ public final class ShopPanel extends JPanel {
         add(title);
         add(Box.createVerticalStrut(10));
 
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        table.setPreferredScrollableViewportSize(new Dimension(420, 220));
-        table.setBackground(new Color(0x3A3A3A));
-        table.setForeground(Color.WHITE);
-        javax.swing.JScrollPane sp = new javax.swing.JScrollPane(table);
-        sp.setOpaque(false);
-        sp.getViewport().setOpaque(false);
-        add(sp);
+    table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    table.setPreferredScrollableViewportSize(new Dimension(420, 220));
+    Theme.styleTable(table);
+    javax.swing.JScrollPane sp = new javax.swing.JScrollPane(table);
+    Theme.styleScrollViewport(sp);
+    add(sp);
         add(Box.createVerticalStrut(10));
 
     buyButton.setAlignmentX(CENTER_ALIGNMENT);

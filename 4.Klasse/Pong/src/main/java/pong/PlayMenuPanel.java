@@ -32,10 +32,8 @@ public final class PlayMenuPanel extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBorder(BorderFactory.createEmptyBorder(40, 40, 40, 40));
 
-    setBackground(new Color(0x2A2A2A));
-    BackgroundAnimator.register(this);
-    BackgroundAnimator.styleButton(startButton);
-    BackgroundAnimator.styleButton(backButton);
+    Theme.applyPanelTheme(this);
+    Theme.styleButtons(startButton, backButton);
 
         ButtonGroup group = new ButtonGroup();
         group.add(singlePlayerButton);
@@ -69,10 +67,9 @@ public final class PlayMenuPanel extends JPanel {
     JLabel playerOneLabel = new JLabel("Spieler 1 Name (links)");
     playerOneLabel.setForeground(Color.WHITE);
         playerOnePanel.add(playerOneLabel);
-        playerOneField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 36));
-        playerOneField.setPreferredSize(new Dimension(Integer.MAX_VALUE, 36));
-        playerOneField.setBackground(new Color(0x444444));
-        playerOneField.setForeground(Color.WHITE);
+    playerOneField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 36));
+    playerOneField.setPreferredSize(new Dimension(Integer.MAX_VALUE, 36));
+    Theme.styleTextField(playerOneField);
         playerOnePanel.add(playerOneField);
         add(playerOnePanel);
         add(Box.createVerticalStrut(10));
@@ -83,10 +80,9 @@ public final class PlayMenuPanel extends JPanel {
     JLabel playerTwoLabel = new JLabel("Spieler 2 Name (rechts)");
     playerTwoLabel.setForeground(Color.WHITE);
         playerTwoPanel.add(playerTwoLabel);
-        playerTwoField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 36));
-        playerTwoField.setPreferredSize(new Dimension(Integer.MAX_VALUE, 36));
-        playerTwoField.setBackground(new Color(0x444444));
-        playerTwoField.setForeground(Color.WHITE);
+    playerTwoField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 36));
+    playerTwoField.setPreferredSize(new Dimension(Integer.MAX_VALUE, 36));
+    Theme.styleTextField(playerTwoField);
         playerTwoPanel.add(playerTwoField);
         add(playerTwoPanel);
         add(Box.createVerticalStrut(20));
