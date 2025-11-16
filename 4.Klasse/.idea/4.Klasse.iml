@@ -8,6 +8,7 @@
       <sourceFolder url="file://$MODULE_DIR$/ZZZZFürTestAusdrucken/GUI_Thread/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ZZZZFürTestAusdrucken/Threadbsp1/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ZZZZFürTestAusdrucken/fibonacci/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CarRace/src" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

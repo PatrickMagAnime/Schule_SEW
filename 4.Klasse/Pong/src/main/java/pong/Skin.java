@@ -2,6 +2,10 @@ package pong;
 
 import java.util.Objects;
 
+/**
+ * Skin
+ * Beschreibt einen Skin (id, name) und dessen Farbpalette. Factory-Methode erzeugt ihn aus JSON-Descriptoren.
+ */
 public final class Skin {
     private final String id;
     private final String name;

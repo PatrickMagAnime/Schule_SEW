@@ -19,6 +19,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
+/**
+ * ShopPanel
+ * Zeigt kaufbare Skins an (Fake-Payment). Bereits erworbene Skins werden als "Besitzt" markiert.
+ */
 public final class ShopPanel extends JPanel {
     private final AppWindow window;
     private final AppContext context;

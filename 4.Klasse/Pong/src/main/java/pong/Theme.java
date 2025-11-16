@@ -13,6 +13,11 @@ import java.awt.Color;
  * Central UI theme helpers to avoid duplicated styling across panels.
  * Use these helpers to keep a consistent dark theme and reduce repeated code.
  */
+/**
+ * Theme
+ * Zentrale Stelle für Farben und UI-Helper, um wiederholten Styling-Code
+ * in den Panels zu vermeiden und das Dark Theme konsistent zu halten.
+ */
 public final class Theme {
     public static final Color BACKGROUND = new Color(0x2A2A2A);
     public static final Color PANEL_DARK = new Color(0x333333);
@@ -28,16 +33,19 @@ public final class Theme {
 
     private Theme() {}
 
+    /** Wendet das dunkle Panel-Theme an und registriert das Panel beim Animator. */
     public static void applyPanelTheme(JPanel panel) {
         panel.setBackground(BACKGROUND);
         panel.setOpaque(true);
         BackgroundAnimator.register(panel);
     }
 
+    /** Einzelnen Button ans Dark Theme anpassen. */
     public static void styleButton(javax.swing.JButton btn) {
         BackgroundAnimator.styleButton(btn);
     }
 
+    /** Mehrere Buttons in einem Rutsch stylen. */
     public static void styleButtons(javax.swing.JButton... btns) {
         if (btns == null) return;
         for (JButton b : btns) {
@@ -45,6 +53,7 @@ public final class Theme {
         }
     }
 
+    /** Textfeld in dunklem Stil (Hintergrund/Schrift) rendern. */
     public static void styleTextField(JTextField f) {
         if (f == null) return;
         f.setBackground(FIELD_BG);
@@ -52,6 +61,7 @@ public final class Theme {
         f.setOpaque(true);
     }
 
+    /** Slider im dunklen Stil, inkl. Tick-Label-Farben. */
     public static void styleSlider(JSlider s) {
         if (s == null) return;
         s.setBackground(PANEL_DARKER);
@@ -72,6 +82,7 @@ public final class Theme {
         }
     }
 
+    /** ComboBox dunkel einfärben (Hintergrund/Schrift). */
     public static void styleComboBox(JComboBox<?> cb) {
         if (cb == null) return;
         cb.setBackground(PANEL_DARKER);
@@ -79,6 +90,7 @@ public final class Theme {
         cb.setOpaque(true);
     }
 
+    /** Tabelle + Header + Selektion an dunkles Theme anpassen. */
     public static void styleTable(JTable table) {
         if (table == null) return;
         table.setBackground(TABLE_ROW);
@@ -94,6 +106,7 @@ public final class Theme {
         }
     }
 
+    /** ScrollPane-Viewport dunkel einfärben, Border entfernen. */
     public static void styleScrollViewport(javax.swing.JScrollPane scroll) {
         if (scroll == null) return;
         scroll.getViewport().setBackground(BACKGROUND);

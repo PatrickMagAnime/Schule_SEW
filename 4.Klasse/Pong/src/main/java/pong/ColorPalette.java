@@ -3,6 +3,10 @@ package pong;
 import java.awt.Color;
 import java.util.Objects;
 
+/**
+ * ColorPalette
+ * Farb-Set für einen Skin: Hintergrund, Mittellinie, linkes/rechtes Paddle, Ball, Text.
+ */
 public final class ColorPalette {
     private final Color background;
     private final Color midline;

@@ -5,6 +5,10 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import java.nio.file.Path;
 
+/**
+ * Main
+ * Einstiegspunkt der Anwendung: Setzt Look&Feel und erstellt das Hauptfenster.
+ */
 public final class Main {
     private Main() {
     }

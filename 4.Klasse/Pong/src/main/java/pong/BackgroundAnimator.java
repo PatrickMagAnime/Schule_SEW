@@ -13,6 +13,13 @@ import java.util.Random;
 import java.awt.Component;
 import javax.swing.JButton;
 
+/**
+ * BackgroundAnimator
+ * Zeichnet dekorative, langsam herum-bounce'nde Farbkugeln im Hintergrund.
+ * - Verwaltet eine Liste zufällig initialisierter Bälle in Normalized-Koordinaten (0..1).
+ * - Nutzt WeakReferences für Panels, damit keine Memory-Leaks entstehen.
+ * - Ein einzelner Timer treibt alle registrierten Panels an (repaint auf jedem Tick).
+ */
 final class BackgroundAnimator {
     private static final int BALL_COUNT = 8;
     private static final int TIMER_MS = 30;
@@ -21,6 +28,7 @@ final class BackgroundAnimator {
     private static final Random RANDOM = new Random(12345);
     private static Timer timer;
 
+    /** Startet den Timer einmalig und erstellt die dekorativen Bälle. */
     static synchronized void ensureStarted() {
         if (timer != null) return;
         for (int i = 0; i < BALL_COUNT; i++) {
@@ -43,12 +51,14 @@ final class BackgroundAnimator {
         timer.start();
     }
 
+    /** Panel registrieren, damit es automatisch neu gezeichnet wird. */
     static synchronized void register(Component component) {
         ensureStarted();
         // keep weak refs so panels can be GC'd
         listeners.add(new WeakReference<>(component));
     }
 
+    /** Zeichnet alle Bälle relativ zur Panelgröße. */
     static void paint(Graphics2D g2, int width, int height) {
         if (width <= 0 || height <= 0) return;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -61,6 +71,7 @@ final class BackgroundAnimator {
         }
     }
 
+    /** Vereinheitlichtes Button-Styling für das Dark Theme. */
     static void styleButton(javax.swing.JButton btn) {
         btn.setBackground(new Color(0x2E2E2E));
         btn.setForeground(new Color(0xFFFFFF));
@@ -69,6 +80,7 @@ final class BackgroundAnimator {
         btn.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(0x666666), 2, true));
     }
 
+    /** Aktualisiert Position + Bounce-Reflektion der Bälle pro Tick. */
     private static void updateBalls() {
         for (DecorativeBall b : balls) {
             b.x += b.vx;
@@ -90,6 +102,7 @@ final class BackgroundAnimator {
         }
     }
 
+    /** Interner Datenhalter für einen dekorativen Ball (normalized Position + Velocity). */
     private static final class DecorativeBall {
         double x;
         double y;

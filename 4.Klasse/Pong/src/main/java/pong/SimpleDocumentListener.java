@@ -4,6 +4,10 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.util.Objects;
 
+/**
+ * SimpleDocumentListener
+ * Kleiner Helfer, um ein Runnable auf alle Dokument-Events (insert/remove/change) auszuführen.
+ */
 public final class SimpleDocumentListener implements DocumentListener {
     private final Runnable runnable;
 

@@ -7,6 +7,11 @@ import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.util.Objects;
 
+/**
+ * AppWindow
+ * Zentrales Fenster mit CardLayout-Navigation zwischen Menüs und Spielpanel.
+ * Bietet Fullscreen-Toggle und leitet Benachrichtigungen an die Panels weiter.
+ */
 public final class AppWindow extends JFrame {
     private static final String CARD_MENU = "menu";
     private static final String CARD_PLAY_MENU = "play";

@@ -1,5 +1,10 @@
 package pong;
 
+/**
+ * Ball
+ * Position, Geschwindigkeit und Größe des Balls. Bietet Hilfsmethoden für
+ * Kollision/Bewegung und zur Anpassung der Geschwindigkeit (Richtung bleibt erhalten).
+ */
 public final class Ball {
     private double x;
     private double y;
@@ -56,6 +61,9 @@ public final class Ball {
         vy = -vy;
     }
 
+    /**
+     * Setzt die Geschwindigkeit im Betrag, behält aber X-/Y-Richtung (Vorzeichen) bei.
+     */
     public void setSpeed(double speed) {
         double signX = Math.signum(vx);
         double signY = Math.signum(vy);

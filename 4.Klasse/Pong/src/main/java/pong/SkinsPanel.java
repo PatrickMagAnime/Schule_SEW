@@ -23,6 +23,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * SkinsPanel
+ * Listet alle verfügbaren (besessenen) Skins und erlaubt Aktivierung.
+ * Vorschau zeigt, wie Farben im Spielfeld wirken.
+ */
 public final class SkinsPanel extends JPanel {
     private final AppWindow window;
     private final AppContext context;

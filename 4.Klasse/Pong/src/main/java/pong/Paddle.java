@@ -1,5 +1,10 @@
 package pong;
 
+/**
+ * Paddle
+ * Repräsentiert ein Paddle mit Position, Größe und vertikaler Geschwindigkeit.
+ * Update() verschiebt es basierend auf velocity; Kollision/Clamping erfolgt im GamePanel.
+ */
 public final class Paddle {
     private double x;
     private double y;

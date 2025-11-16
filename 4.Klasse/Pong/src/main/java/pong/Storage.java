@@ -27,6 +27,11 @@ import java.util.TreeSet;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+/**
+ * Storage
+ * Verantwortlich für das Laden/Speichern aller JSON-Dateien (Profile, Settings, SkinsOwned,
+ * Purchases, Leaderboard) sowie Laden von Ressourcen (Skins, Shop-Katalog). Nutzt Gson.
+ */
 public final class Storage {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 

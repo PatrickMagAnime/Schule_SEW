@@ -15,6 +15,11 @@ import java.awt.Graphics2D;
 import java.awt.Color;
 import java.util.Objects;
 
+/**
+ * PlayMenuPanel
+ * Auswahl zwischen Single Player und Multiplayer 1v1 sowie Eingabe der Spielernamen.
+ * Nutzt das zentrale Theme und sorgt für valide Startvoraussetzungen (Namen gesetzt).
+ */
 public final class PlayMenuPanel extends JPanel {
     private final AppWindow window;
     private final AppContext context;

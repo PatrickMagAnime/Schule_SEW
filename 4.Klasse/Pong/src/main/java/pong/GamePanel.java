@@ -19,6 +19,15 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Random;
 
+/**
+ * GamePanel
+ * - Enthält den Game-Loop (Timer) und die komplette Spiel-Logik: Input, Physik,
+ *   Kollisionen, Scoring und Rendering.
+ * - Skaliert alle Größen (Paddles, Ball, Geschwindigkeiten, Fonts) relativ zur Panelgröße.
+ *   Beim Resize/Fullscreen-Wechsel bleibt die „logische" Geschwindigkeit konstant,
+ *   damit das Level nicht springt.
+ * - Keybindings kommen aus den Settings; ESC bringt ins Menü, F11 toggelt Fullscreen.
+ */
 public final class GamePanel extends JPanel {
     private static final int DEFAULT_WIDTH = 900;
     private static final int DEFAULT_HEIGHT = 540;
@@ -53,7 +62,7 @@ public final class GamePanel extends JPanel {
     private double scaledMaxSpeed;
 
     private void updateScaleAndSizes() {
-        // keep proportions using the smaller axis scale
+        // Skaliere relativ zur kleineren Achse, damit das Seitenverhältnis gewahrt bleibt
         scale = Math.min((double) Math.max(1, width) / DEFAULT_WIDTH, (double) Math.max(1, height) / DEFAULT_HEIGHT);
         scaledPaddleWidth = PADDLE_WIDTH * scale;
         scaledPaddleHeight = PADDLE_HEIGHT * scale;
@@ -97,6 +106,7 @@ public final class GamePanel extends JPanel {
         addComponentListener(new java.awt.event.ComponentAdapter() {
             @Override
             public void componentResized(java.awt.event.ComponentEvent e) {
+                // Wichtig: Beim Resize die „logische" Speed erhalten, Positionen proportional anpassen
                 int oldWidth = Math.max(1, width);
                 int oldHeight = Math.max(1, height);
                 double oldScale = scale;
@@ -107,12 +117,12 @@ public final class GamePanel extends JPanel {
                 updateScaleAndSizes();
 
                 if (running && ball != null) {
-                    // preserve logical speed across scale changes so level doesn't jump
+                    // Behalte logische Geschwindigkeit über Skalenwechsel (Level bleibt konstant)
                     if (oldScale <= 0) oldScale = 1.0;
                     double logicalSpeed = currentSpeed / oldScale;
                     currentSpeed = logicalSpeed * scale;
 
-                    // update paddle sizes and keep their vertical center proportional
+                    // Paddles: Größe aktualisieren und vertikale Zentrierung proportional halten
                     double leftCenterRel = leftPaddle.centerY() / (double) oldHeight;
                     double rightCenterRel = rightPaddle.centerY() / (double) oldHeight;
                     leftPaddle.setSize(scaledPaddleWidth, scaledPaddleHeight);
@@ -120,7 +130,7 @@ public final class GamePanel extends JPanel {
                     leftPaddle.setPosition(40, Math.max(0, Math.min(height - scaledPaddleHeight, leftCenterRel * height - scaledPaddleHeight / 2.0)));
                     rightPaddle.setPosition(width - 40 - scaledPaddleWidth, Math.max(0, Math.min(height - scaledPaddleHeight, rightCenterRel * height - scaledPaddleHeight / 2.0)));
 
-                    // update ball size and position proportionally (keep center)
+                    // Ball: Größe updaten, Mittelpunkt proportional beibehalten
                     double ballCenterRelX = ball.centerX() / (double) oldWidth;
                     double ballCenterRelY = ball.centerY() / (double) oldHeight;
                     ball.setSize(scaledBallSize);
@@ -129,7 +139,7 @@ public final class GamePanel extends JPanel {
                     ball.setPosition(newCenterX - ball.size() / 2.0, newCenterY - ball.size() / 2.0);
                     // ensure ball inside bounds
                     ball.clampPosition(0, 0, width - ball.size(), height - ball.size());
-                    // adjust velocity magnitudes to new currentSpeed while preserving direction
+                    // Velocity-Betrag an neue currentSpeed anpassen, Richtung behalten
                     ball.setSpeed(currentSpeed);
                 } else {
                     // when not running, keep previous behavior: recenter and reset ball
@@ -248,6 +258,7 @@ public final class GamePanel extends JPanel {
     }
 
     private void onTick() {
+        // Ein Tick des Game-Loops: Eingaben verarbeiten, Ball updaten, rendern
         if (!running) {
             return;
         }
@@ -538,6 +549,7 @@ public final class GamePanel extends JPanel {
     g2.setFont(g2.getFont().deriveFont(Font.BOLD, (float) (20f * Math.max(1.0, scale))));
         if (configuration.mode() == GameConfiguration.Mode.SINGLE_PLAYER) {
             String hud = configuration.playerOneName() + "  Score: " + singleScore;
+            // Level-Berechnung: Start bei 1, steigt mit jeder Geschwindigkeitsstufe (Delta)
             int level = 1 + (int) Math.floor((currentSpeed - scaledStartSpeed) / scaledSpeedDelta);
             hud += "  Level: " + level;
             g2.drawString(hud, 30, 30);

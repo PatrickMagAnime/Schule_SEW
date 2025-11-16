@@ -15,6 +15,11 @@ import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
+/**
+ * SettingsPanel
+ * Bietet FPS, Max-Points, Keybinds und UI-Optionen (z. B. Mittellinie) an.
+ * Schreibt Änderungen direkt in die persistierten Settings via AppContext.
+ */
 public final class SettingsPanel extends JPanel {
     private final AppWindow window;
     private final AppContext context;

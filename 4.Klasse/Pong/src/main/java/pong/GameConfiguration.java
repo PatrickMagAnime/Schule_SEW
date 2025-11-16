@@ -2,6 +2,10 @@ package pong;
 
 import java.util.Objects;
 
+/**
+ * GameConfiguration
+ * Enthält Modus (Single/Multi) und Spieler-Namen für eine Spielsession.
+ */
 public final class GameConfiguration {
     public enum Mode {
         SINGLE_PLAYER,

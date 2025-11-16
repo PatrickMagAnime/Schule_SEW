@@ -17,6 +17,11 @@ import java.awt.Graphics2D;
 import java.awt.Color;
 import java.util.Objects;
 
+/**
+ * MenuPanel
+ * Hauptmenü mit Navigation zu Spielstart, Einstellungen, Skins, Shop und Leaderboard.
+ * Nutzt das zentrale Theme und den animierten Hintergrund.
+ */
 public final class MenuPanel extends JPanel {
     private final AppWindow window;
     private final AppContext context;

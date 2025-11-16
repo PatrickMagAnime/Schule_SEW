@@ -19,6 +19,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Color;
 
+/**
+ * LeaderboardPanel
+ * Zeigt Ranglisten-Einträge für Single Player und 1v1 an.
+ * Sortierung: SP nach Score absteigend, 1v1 nach Datum absteigend.
+ */
 public final class LeaderboardPanel extends JPanel {
     private static final String MODE_SP = "SP";
     private static final String MODE_MP = "1v1";

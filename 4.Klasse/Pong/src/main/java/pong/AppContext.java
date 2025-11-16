@@ -10,6 +10,11 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * AppContext
+ * Lädt/speichert alle Daten (Profile, Settings, Skins, Käufe, Leaderboard) über Storage
+ * und stellt bequeme Lese-/Schreibmethoden bereit. Enthält die aktuellen In-Memory-Stände.
+ */
 public final class AppContext {
     private final Storage storage;
     private final Map<String, Skin> skins;

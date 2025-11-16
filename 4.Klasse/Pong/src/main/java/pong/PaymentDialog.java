@@ -13,6 +13,10 @@ import javax.swing.JTextField;
 import java.awt.Dimension;
 import java.util.Objects;
 
+/**
+ * PaymentDialog
+ * Simuliert einen Fake-PayPal Checkout (kein echtes Payment). Erfolgreiche "Zahlung" schaltet Skin frei.
+ */
 public final class PaymentDialog extends JDialog {
     private final AppContext context;
     private final Storage.ShopItem item;
