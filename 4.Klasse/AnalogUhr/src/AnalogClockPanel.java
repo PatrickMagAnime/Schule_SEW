@@ -5,10 +5,23 @@ import java.time.LocalTime;
 public class AnalogClockPanel extends JPanel {
 
     private LocalTime time = LocalTime.now();//setzt die zeit auf die jetzige, nutze ich unten für sek,min,h
+    // stopwatch related
+    private volatile boolean stopwatchRunning = false;
+    private volatile long stopwatchMillis = 0L;
 
     public void setTime(LocalTime t) {
         this.time = t;
         repaint();//jedesmal wenn die methode aufgerufen wird zeichnet sich die uhr neu. update() würde es auch geben
+    }
+
+    public void setStopwatchRunning(boolean running) {
+        this.stopwatchRunning = running;
+        repaint();
+    }
+
+    public void setStopwatchMillis(long ms) {
+        this.stopwatchMillis = ms;
+        repaint();
     }
 
     @Override
@@ -84,8 +97,54 @@ public class AnalogClockPanel extends JPanel {
             g2.setStroke(new BasicStroke(1.8f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
             drawHand(g2, cx, cy, secondLen, secondAngle);
 
+            // draw extra stopwatch seconds hand (from main center) when stopwatch running
+            if (stopwatchRunning) {
+                double swSeconds = (stopwatchMillis / 1000.0) % 60.0;
+                double swSecondAngle = Math.toRadians(swSeconds * 6 - 90);
+                g2.setColor(new Color(30, 130, 30));
+                g2.setStroke(new BasicStroke(2.5f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+                drawHand(g2, cx, cy, secondLen, swSecondAngle);
+            }
+
             g2.setColor(new Color(30, 30, 30));
             g2.fillOval(cx - 5, cy - 5, 10, 10);
+
+            //kleinere stoppuhr uhr zeichnen
+            int smallRadius = (int) (radius * 0.23);
+            int smallCx = cx + radius - smallRadius - 60;
+            int smallCy = cy + radius - smallRadius - 60;
+
+            // hintergrund kleine uhr
+            g2.setColor(new Color(250, 250, 250,80)); //farbe weiss und alpha 80% damit leicht durchsichtig
+            g2.fillOval(smallCx - smallRadius, smallCy - smallRadius, smallRadius * 2, smallRadius * 2);
+            g2.setColor(Color.DARK_GRAY);
+            g2.setStroke(new BasicStroke(1.3f));
+            g2.drawOval(smallCx - smallRadius, smallCy - smallRadius, smallRadius * 2, smallRadius * 2);
+
+            // kleine ticks
+            g2.setColor(new Color(120, 120, 120));
+            for (int i = 0; i < 12; i++) {
+                double angle = Math.toRadians(i * 30 - 90);
+                int inner = (int) (smallRadius * 0.65);
+                int outer = smallRadius - 4;
+                int x1 = smallCx + (int) Math.round(inner * Math.cos(angle));
+                int y1 = smallCy + (int) Math.round(inner * Math.sin(angle));
+                int x2 = smallCx + (int) Math.round(outer * Math.cos(angle));
+                int y2 = smallCy + (int) Math.round(outer * Math.sin(angle));
+                g2.drawLine(x1, y1, x2, y2);
+            }
+
+            //millis zeiger für kleine uhr
+            double msFraction = (stopwatchMillis % 1000) / 1000.0;
+            double msAngle = Math.toRadians(msFraction * 360.0 - 90);
+            int msLen = (int) (smallRadius * 0.85);
+            g2.setColor(new Color(50, 120, 200));
+            g2.setStroke(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+            drawHand(g2, smallCx, smallCy, msLen, msAngle);
+
+            // mittelpunkt kleine uhr
+            g2.setColor(new Color(60, 60, 60));
+            g2.fillOval(smallCx - 3, smallCy - 3, 6, 6);
         } finally {
             g2.dispose();
         }
