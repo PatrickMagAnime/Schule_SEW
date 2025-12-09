@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7474e058-f234-404c-b165-04e8f79091fc" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AnalogClockPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AnalogClockPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Uhr.form" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Uhr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Uhr.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
