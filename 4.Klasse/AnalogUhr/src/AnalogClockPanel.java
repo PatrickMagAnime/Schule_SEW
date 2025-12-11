@@ -97,7 +97,7 @@ public class AnalogClockPanel extends JPanel {
             g2.setStroke(new BasicStroke(1.8f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
             drawHand(g2, cx, cy, secondLen, secondAngle);
 
-            // draw extra stopwatch seconds hand (from main center) when stopwatch running
+            //draw kleine stopuhr sekunden zeiger
             if (stopwatchRunning) {
                 double swSeconds = (stopwatchMillis / 1000.0) % 60.0;
                 double swSecondAngle = Math.toRadians(swSeconds * 6 - 90);

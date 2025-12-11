@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="7474e058-f234-404c-b165-04e8f79091fc" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AnalogClockPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AnalogClockPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../nuke.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +34,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/patrick/Nya/github/PatrickMagAnime/kapanestrainer&quot;
+    &quot;last_opened_file_path&quot;: &quot;/home/patrick/Downloads&quot;
   }
 }</component>
   <component name="RunManager">
