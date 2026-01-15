@@ -14,31 +14,6 @@ public class Form {
     private int pos = 0;
 
     public Form() {
-        //falls die GUI mit dem Form Designer nicht initialisiert wurde
-        //erstelle einfache Komponenten programmgesteuert oder so
-        if (form == null) {
-            form = new JPanel(new java.awt.BorderLayout(5, 5));
-        }
-        if (eingabeTextField == null) {
-            eingabeTextField = new JTextField(20);
-        }
-        if (textArea1 == null) {
-            textArea1 = new JTextArea(5, 30);
-        }
-        if (laufschriftStartenButton == null) {
-            laufschriftStartenButton = new JButton("Start");
-        }
-
-        //nur hinzufügen wenn noch nicht vom Form Designer eingebunden
-        if (laufschriftStartenButton.getParent() == null) {
-            JPanel top = new JPanel();
-            top.add(eingabeTextField);
-            top.add(laufschriftStartenButton);
-            form.add(top, java.awt.BorderLayout.NORTH);
-        }
-        if (textArea1.getParent() == null) {
-            form.add(new JScrollPane(textArea1), java.awt.BorderLayout.CENTER);
-        }
 
         //button startet / stoppt die schrift
         laufschriftStartenButton.addActionListener(new ActionListener() {
@@ -48,14 +23,14 @@ public class Form {
             }
         });
 
-        //textArea soll nur anzeige sein
+        //textArea die sich bewegt soll nur anzeige sein
         textArea1.setEditable(false);
     }
 
     private void toggleLaufschrift() {
         if (timer != null && timer.isRunning()) {
             timer.stop();
-            laufschriftStartenButton.setText("Start");
+            laufschriftStartenButton.setText("Laufschrift Starten");
             if (textArea1 != null) textArea1.setText(fullText);
             return;
         }
@@ -66,15 +41,17 @@ public class Form {
         fullText = input + "         "; //abstand zum Wiederholen
         pos = 0;
 
-        final int window = 75; //wie viele Zeichen angezeigt werden
+        final int window = 75; //wie viele Zeichen ANGEzeigt werden
 
-        timer = new Timer(150, new ActionListener() {
+        //geschwindigkeit kann man ändern hier
+        timer = new Timer(15, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (textArea1 != null) textArea1.setText(getDisplay(window));
             }
         });
         timer.start();
+        //start knopf wird zum stop knopf gemacht
         laufschriftStartenButton.setText("Stop");
     }
 
@@ -92,6 +69,7 @@ public class Form {
         return sub;
     }
 
+    //copy paste wie in jeder übung mit gui
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             @Override
