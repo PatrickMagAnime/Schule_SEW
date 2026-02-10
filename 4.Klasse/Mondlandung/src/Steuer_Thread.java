@@ -13,7 +13,7 @@ class Steuer_Thread extends Thread {
         while (true) {
             if (scanner.nextLine() != null) {
                 //Gegenschub, verringern der geschwindigkeit
-                pt.v -= 3; // Beispiel: 3 m/s bremskraft pro Enter
+                pt.v -= 4; // Beispiel: 4 m/s bremskraft pro Enter
                 System.out.println("SCHUB");
             }
         }

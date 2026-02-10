@@ -26,7 +26,7 @@ class Ph_Thread extends Thread {
             }
             t++;
         }
-        if (v > 5) {
+        if (v > 3) {
             System.out.println("Too, du hast alle getötet mit " + v + " m/s");
         } else {
             System.out.println("sicher gelandet");
