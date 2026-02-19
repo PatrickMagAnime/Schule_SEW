@@ -1,100 +1,124 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 import java.io.*;
 import java.net.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
-public class RanClient extends JFrame {
-    private JTextField tfAdresse, tfPort, tfResultat;
-    private JButton btnVerbinden, btnZufall;
+public class RanClient extends JFrame implements ActionListener {
+
+    private JTextField tfIP = new JTextField("localhost",10);
+    private JTextField tfPort = new JTextField("1234",5);
+    private JTextField tfOut = new JTextField(20);
+    private JButton btnConnect = new JButton("Verbinden");
+    private JButton btnRandom = new JButton("Zufall");
+
+    private Socket socket;
+    private BufferedReader in;
 
     public RanClient() {
-        setTitle("Zufalls Client");
-        setSize(450, 250);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout(10, 10));
 
-        // Oberer Bereich
-        JPanel panelTop = new JPanel();
-        tfAdresse = new JTextField("localhost", 10);
-        tfPort = new JTextField("1234", 5);
-        btnVerbinden = new JButton("Verbinden");
+        setTitle("Client");
+        setSize(400,180);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLayout(new FlowLayout());
 
-        panelTop.add(new JLabel("IP:"));
-        panelTop.add(tfAdresse);
-        panelTop.add(new JLabel("Port:"));
-        panelTop.add(tfPort);
-        panelTop.add(btnVerbinden);
+        tfOut.setEditable(false);
+        btnRandom.setEnabled(false);
 
-        // Mittlerer Bereich
-        JPanel panelCenter = new JPanel(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 5, 5, 5);
-        gbc.gridx = 0;
+        add(new JLabel("IP:")); add(tfIP);
+        add(new JLabel("Port:")); add(tfPort);
+        add(btnConnect); add(btnRandom);
+        add(tfOut);
 
-        btnZufall = new JButton("Zufall anfordern");
-        tfResultat = new JTextField(25);
-        tfResultat.setEditable(false);
-        tfResultat.setHorizontalAlignment(JTextField.CENTER);
+        btnConnect.addActionListener(this);
+        btnRandom.addActionListener(this);
+    }
 
-        gbc.gridy = 0;
-        panelCenter.add(btnZufall, gbc);
-        gbc.gridy = 1;
-        panelCenter.add(tfResultat, gbc);
+    public void actionPerformed(ActionEvent e) {
 
-        add(panelTop, BorderLayout.NORTH);
-        add(panelCenter, BorderLayout.CENTER);
+        if(e.getSource()==btnConnect) connect();
+        if(e.getSource()==btnRandom) random();
+    }
 
-        // LOGIK VERBINDEN
-        btnVerbinden.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+    private void connect() {
+
+        String host = tfIP.getText();
+        int port;
+
+        try {
+            port = Integer.parseInt(tfPort.getText());
+        } catch(Exception ex) {
+            tfOut.setText("Port ungültig!");
+            return;
+        }
+
+        tfOut.setText("Verbinde...");
+
+        new Thread(new Runnable() {
+            public void run() {
                 try {
-                    String host = tfAdresse.getText();
-                    int port = Integer.parseInt(tfPort.getText());
 
-                    // Test-Verbindung um Erreichbarkeit zu prüfen
-                    Socket testSocket = new Socket();
-                    // Timeout nach 2 Sekunden, falls Server nicht reagiert
-                    testSocket.connect(new InetSocketAddress(host, port), 2000);
-                    testSocket.close();
+                    // Alte Verbindung schließen (falls vorhanden)
+                    if(socket != null && !socket.isClosed())
+                        socket.close();
 
-                    tfResultat.setText("Erfolgreich verbunden mit " + host);
-                    tfResultat.setForeground(new Color(0, 150, 0)); // Grün bei Erfolg
-                } catch (UnknownHostException ex) {
-                    tfResultat.setText("Fehler: Host nicht gefunden!");
-                    tfResultat.setForeground(Color.RED);
-                } catch (ConnectException ex) {
-                    tfResultat.setText("Fehler: Server nicht erreichbar!");
-                    tfResultat.setForeground(Color.RED);
-                } catch (Exception ex) {
-                    tfResultat.setText("Fehler: " + ex.getMessage());
-                    tfResultat.setForeground(Color.RED);
+                    socket = new Socket();
+                    socket.connect(new InetSocketAddress(host,port),3000);
+
+                    in = new BufferedReader(
+                            new InputStreamReader(socket.getInputStream()));
+
+                    SwingUtilities.invokeLater(new Runnable() {
+                        public void run() {
+                            tfOut.setText("Verbunden mit " + host);
+                            btnRandom.setEnabled(true);
+                        }
+                    });
+
+                } catch(Exception ex) {
+
+                    SwingUtilities.invokeLater(new Runnable() {
+                        public void run() {
+                            tfOut.setText("Verbindung fehlgeschlagen!");
+                            btnRandom.setEnabled(false);
+                        }
+                    });
                 }
             }
-        });
+        }).start();
+    }
 
-        // LOGIK ZUFALL
-        btnZufall.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+    private void random() {
+
+        if(socket == null || socket.isClosed()) {
+            tfOut.setText("Nicht verbunden!");
+            return;
+        }
+
+        new Thread(new Runnable() {
+            public void run() {
                 try {
-                    String host = tfAdresse.getText();
-                    int port = Integer.parseInt(tfPort.getText());
 
-                    Socket s = new Socket(host, port);
-                    int zahl = s.getInputStream().read();
+                    socket.setSoTimeout(5000);
+                    final String s = in.readLine();
 
-                    tfResultat.setText("Server Zufallszahl: " + zahl);
-                    tfResultat.setForeground(Color.BLACK);
-                    s.close();
-                } catch (Exception ex) {
-                    tfResultat.setText("Zufall fehlgeschlagen: " + ex.getMessage());
-                    tfResultat.setForeground(Color.RED);
+                    SwingUtilities.invokeLater(new Runnable() {
+                        public void run() {
+                            tfOut.setText("Zahl: " + s);
+                        }
+                    });
+
+                } catch(Exception ex) {
+
+                    SwingUtilities.invokeLater(new Runnable() {
+                        public void run() {
+                            tfOut.setText("Server Fehler!");
+                            btnRandom.setEnabled(false);
+                        }
+                    });
                 }
             }
-        });
+        }).start();
     }
 
     public static void main(String[] args) {
