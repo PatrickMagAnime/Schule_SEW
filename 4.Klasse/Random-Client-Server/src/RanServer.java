@@ -14,7 +14,6 @@ public class RanServer {
                 Socket client = server.accept();
                 System.out.println("Client verbunden: " + client.getInetAddress());
 
-                // Thread pro Client → stabil bei mehreren Verbindungen
                 new Thread(() -> handleClient(client)).start();
 
             } catch (IOException e) {

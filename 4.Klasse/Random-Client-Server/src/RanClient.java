@@ -58,7 +58,6 @@ public class RanClient extends JFrame implements ActionListener {
             public void run() {
                 try {
 
-                    // Alte Verbindung schließen (falls vorhanden)
                     if(socket != null && !socket.isClosed())
                         socket.close();
 
